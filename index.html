@@ -953,17 +953,6 @@ input[type=number] { -moz-appearance: textfield; }
           </div>
 
           <div class="field">
-            <label class="field-label">Broker Rate (per unit)
-              <span class="tooltip-icon">?<span class="tooltip-text">Rate paid to freight brokers or brokerage intermediaries, typically 25–30% above contract rates.</span></span>
-            </label>
-            <div class="input-wrap">
-              <span class="input-prefix">$</span>
-              <input type="number" id="brokerRate" class="has-prefix" min="0" step="0.01" placeholder="0.00" oninput="calcStep2()">
-            </div>
-            <div class="field-helper">Traditional freight brokers typically charge 25–30% above contract rates</div>
-          </div>
-
-          <div class="field">
             <label class="field-label">Ad Hoc / Spot Rate (per unit)
               <span class="tooltip-icon">?<span class="tooltip-text">One-off or emergency spot market rates — typically the most expensive option.</span></span>
             </label>
@@ -978,18 +967,13 @@ input[type=number] { -moz-appearance: textfield; }
               <div class="pct-group-title">Volume Distribution</div>
               <div class="pct-row">
                 <span class="pct-label">Contract carrier</span>
-                <input type="range" class="pct-slider" id="pctContract" min="0" max="100" value="60" oninput="syncPct('contract')">
-                <span class="pct-value" id="pctContractVal">60%</span>
-              </div>
-              <div class="pct-row">
-                <span class="pct-label">Broker</span>
-                <input type="range" class="pct-slider" id="pctBroker" min="0" max="100" value="30" oninput="syncPct('broker')">
-                <span class="pct-value" id="pctBrokerVal">30%</span>
+                <input type="range" class="pct-slider" id="pctContract" min="0" max="100" value="70" oninput="syncPct('contract')">
+                <span class="pct-value" id="pctContractVal">70%</span>
               </div>
               <div class="pct-row">
                 <span class="pct-label">Ad hoc / spot</span>
-                <input type="range" class="pct-slider" id="pctSpot" min="0" max="100" value="10" oninput="syncPct('spot')">
-                <span class="pct-value" id="pctSpotVal">10%</span>
+                <input type="range" class="pct-slider" id="pctSpot" min="0" max="100" value="30" oninput="syncPct('spot')">
+                <span class="pct-value" id="pctSpotVal">30%</span>
               </div>
               <div class="pct-total-row">
                 <span class="pct-total-label">Total</span>
@@ -1592,11 +1576,10 @@ function updateTotals() {
 // Step 2
 function syncPct(changed) {
   calcStep2();
-  const c = val('pctContract'), b = val('pctBroker'), s = val('pctSpot');
+  const c = val('pctContract'), s = val('pctSpot');
   $('pctContractVal').textContent = Math.round(c) + '%';
-  $('pctBrokerVal').textContent = Math.round(b) + '%';
   $('pctSpotVal').textContent = Math.round(s) + '%';
-  const total = Math.round(c + b + s);
+  const total = Math.round(c + s);
   $('pctTotal').textContent = total + '%';
   $('pctTotal').className = 'pct-total-value ' + (total === 100 ? 'valid' : 'invalid');
   $('pctValidation').textContent = total !== 100 ? 'Percentages must sum to 100%' : '';
@@ -1604,9 +1587,9 @@ function syncPct(changed) {
 
 function calcStep2() {
   const vol = val('monthlyVolume');
-  const cr = val('contractRate'), br = val('brokerRate'), sr = val('spotRate');
-  const pc = val('pctContract') / 100, pb = val('pctBroker') / 100, ps = val('pctSpot') / 100;
-  const blended = cr * pc + br * pb + sr * ps;
+  const cr = val('contractRate'), sr = val('spotRate');
+  const pc = val('pctContract') / 100, ps = val('pctSpot') / 100;
+  const blended = cr * pc + sr * ps;
   const currentSpend = vol * blended;
   const allContract = vol * cr;
   const diff = currentSpend - allContract;
@@ -1728,14 +1711,12 @@ function resetAll() {
     if (el.id === 'portDwellTarget') { el.value = '4'; return; }
     if (el.id === 'vehicleValue') { el.value = '51000'; return; }
     if (el.id === 'pctContract') return;
-    if (el.id === 'pctBroker') return;
     if (el.id === 'pctSpot') return;
     if (el.id === 'mgmtPctSlider') return;
     el.value = '';
   });
-  $('pctContract').value = 60;
-  $('pctBroker').value = 30;
-  $('pctSpot').value = 10;
+  $('pctContract').value = 70;
+  $('pctSpot').value = 30;
   $('mgmtPctSlider').value = 50;
   syncPct('contract');
   syncMgmtPct();
