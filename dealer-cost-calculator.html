@@ -271,30 +271,26 @@ input[type=number] { -moz-appearance: textfield; }
       </div>
       <div class="step-indicator" data-step="2" onclick="goToStep(2)">
         <div class="step-dot"><span class="step-number">2</span></div>
-        <span class="step-label">Transport Volume</span>
+        <span class="step-label">Transport Basics</span>
       </div>
       <div class="step-indicator" data-step="3" onclick="goToStep(3)">
         <div class="step-dot"><span class="step-number">3</span></div>
-        <span class="step-label">Transport Invoice</span>
+        <span class="step-label">Floor Plan Interest</span>
       </div>
       <div class="step-indicator" data-step="4" onclick="goToStep(4)">
         <div class="step-dot"><span class="step-number">4</span></div>
-        <span class="step-label">Floor Plan Interest</span>
+        <span class="step-label">Auction Storage</span>
       </div>
       <div class="step-indicator" data-step="5" onclick="goToStep(5)">
         <div class="step-dot"><span class="step-number">5</span></div>
-        <span class="step-label">Auction Storage</span>
+        <span class="step-label">Manager Time</span>
       </div>
       <div class="step-indicator" data-step="6" onclick="goToStep(6)">
         <div class="step-dot"><span class="step-number">6</span></div>
-        <span class="step-label">Manager Time</span>
+        <span class="step-label">Arbitration Risk</span>
       </div>
       <div class="step-indicator" data-step="7" onclick="goToStep(7)">
         <div class="step-dot"><span class="step-number">7</span></div>
-        <span class="step-label">Arbitration Risk</span>
-      </div>
-      <div class="step-indicator" data-step="8" onclick="goToStep(8)">
-        <div class="step-dot"><span class="step-number">8</span></div>
         <span class="step-label">Results</span>
       </div>
     </nav>
@@ -364,12 +360,12 @@ input[type=number] { -moz-appearance: textfield; }
       </div>
     </div>
 
-    <!-- STEP 2: Transport Volume -->
+    <!-- STEP 2: Transport Basics (volume + invoice combined) -->
     <div class="step-view" id="step-2">
       <div class="step-content">
-        <div class="step-tag">Step 2 of 8</div>
-        <h2 class="step-title">Your Transport Volume</h2>
-        <p class="step-description">Start with two baseline numbers: how many vehicles you transport each month, and the average purchase price. These carry through to your floor plan interest and total cost calculations.</p>
+        <div class="step-tag">Step 2 of 7</div>
+        <h2 class="step-title">Transport Basics</h2>
+        <p class="step-description">Start with your monthly volume, average purchase price, and what you currently pay per vehicle. Industry data shows that ~25% of a typical broker quote goes to broker margin — the carrier receives the other ~75%. That margin is built into the price you see, not added on top.</p>
 
         <div class="form-grid">
           <div class="field">
@@ -390,30 +386,14 @@ input[type=number] { -moz-appearance: textfield; }
             </div>
             <div class="field-helper">Floor plan interest starts accruing at auction purchase</div>
           </div>
-        </div>
 
-        <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
-          <button class="btn btn-primary" onclick="goToStep(3)">Next: Transport Invoice &rarr;</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP 3: Transport Invoice -->
-    <div class="step-view" id="step-3">
-      <div class="step-content">
-        <div class="step-tag">Step 3 of 8</div>
-        <h2 class="step-title">Transport Invoice</h2>
-        <p class="step-description">Enter what you currently pay per vehicle. Industry data shows that ~25% of a typical broker quote goes to broker margin — the carrier receives the other ~75%. That margin is built into the price you see, not added on top.</p>
-
-        <div class="form-grid">
           <div class="field full-width">
             <label class="field-label">Average Transport Quote Per Vehicle
               <span class="tooltip-icon">?<span class="tooltip-text">The all-in price your broker or transport service quotes per vehicle. This is the number on your invoice. Industry data suggests ~25% of this typically represents broker margin, with the remaining ~75% reaching the carrier.</span></span>
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input type="number" id="brokerQuote" class="has-prefix" min="0" step="25" placeholder="e.g. 1125" oninput="calcStep3()">
+              <input type="number" id="brokerQuote" class="has-prefix" min="0" step="25" placeholder="e.g. 1125" oninput="calcStep2()">
             </div>
             <div class="field-helper">The price on your transport invoice per vehicle</div>
           </div>
@@ -440,16 +420,16 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-          <button class="btn btn-primary" onclick="goToStep(4)">Next: Floor Plan Interest &rarr;</button>
+          <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goToStep(3)">Next: Floor Plan Interest &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 4: Floor Plan Interest -->
-    <div class="step-view" id="step-4">
+    <!-- STEP 3: Floor Plan Interest -->
+    <div class="step-view" id="step-3">
       <div class="step-content">
-        <div class="step-tag">Step 4 of 8</div>
+        <div class="step-tag">Step 3 of 7</div>
         <h2 class="step-title">Floor Plan Interest</h2>
         <p class="step-description">Floor plan interest starts the moment the hammer falls at auction — before the vehicle has moved an inch. Every day in transit is a day of interest you're paying with no vehicle on the lot to show for it.</p>
 
@@ -459,7 +439,7 @@ input[type=number] { -moz-appearance: textfield; }
               <span class="tooltip-icon">?<span class="tooltip-text">Your annual floor plan interest rate as a percentage. Example: at 7.3% annual, a $90,000 vehicle accrues roughly $18/day in floor plan interest.</span></span>
             </label>
             <div class="input-wrap">
-              <input type="number" id="fpRate" class="has-suffix" min="0" max="30" step="0.1" placeholder="e.g. 7.3" oninput="calcStep4()">
+              <input type="number" id="fpRate" class="has-suffix" min="0" max="30" step="0.1" placeholder="e.g. 7.3" oninput="calcStep3()">
               <span class="input-suffix">%</span>
             </div>
             <div class="field-helper">Annual floor plan rate — check your floorplan agreement</div>
@@ -469,7 +449,7 @@ input[type=number] { -moz-appearance: textfield; }
             <label class="field-label">Average Days in Transit (door to door)
               <span class="tooltip-icon">?<span class="tooltip-text">Average number of days from auction purchase to vehicle arriving on your lot. This includes time at auction before pickup plus transit time. Industry data: broker-arranged transport averages 10–14 days total.</span></span>
             </label>
-            <input type="number" id="currentTransitDays" min="0" step="0.5" placeholder="e.g. 12" oninput="calcStep4()">
+            <input type="number" id="currentTransitDays" min="0" step="0.5" placeholder="e.g. 12" oninput="calcStep3()">
             <div class="field-helper">From auction purchase date to lot arrival</div>
           </div>
         </div>
@@ -491,16 +471,16 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(3)">&larr; Back</button>
-          <button class="btn btn-primary" onclick="goToStep(5)">Next: Auction Storage &rarr;</button>
+          <button class="btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goToStep(4)">Next: Auction Storage &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 5: Auction Storage -->
-    <div class="step-view" id="step-5">
+    <!-- STEP 4: Auction Storage -->
+    <div class="step-view" id="step-4">
       <div class="step-content">
-        <div class="step-tag">Step 5 of 8</div>
+        <div class="step-tag">Step 4 of 7</div>
         <h2 class="step-title">Auction Storage Fees</h2>
         <p class="step-description">Storage fees start accumulating after the auction's grace period expires. When a carrier isn't assigned quickly, your vehicle sits — and those extra days come directly out of your margin.</p>
 
@@ -509,7 +489,7 @@ input[type=number] { -moz-appearance: textfield; }
             <label class="field-label">Auction Grace Period (days)
               <span class="tooltip-icon">?<span class="tooltip-text">Number of free storage days the auction provides after purchase before fees begin. Common: ADESA 7 days, Manheim varies by location. Check your specific auction's terms.</span></span>
             </label>
-            <input type="number" id="gracePeriod" min="0" value="7" placeholder="7" oninput="calcStep5()">
+            <input type="number" id="gracePeriod" min="0" value="7" placeholder="7" oninput="calcStep4()">
             <div class="field-helper">Free storage days before fees begin — often 7 days</div>
           </div>
 
@@ -517,7 +497,7 @@ input[type=number] { -moz-appearance: textfield; }
             <label class="field-label">Average Days Until Carrier Pickup
               <span class="tooltip-icon">?<span class="tooltip-text">Average number of days from auction purchase until the carrier physically picks up the vehicle. This is separate from total transit time — it's the time the vehicle sits waiting at auction for a carrier to be assigned and arrive.</span></span>
             </label>
-            <input type="number" id="avgPickupDays" min="0" step="0.5" placeholder="e.g. 5" oninput="calcStep5()">
+            <input type="number" id="avgPickupDays" min="0" step="0.5" placeholder="e.g. 5" oninput="calcStep4()">
             <div class="field-helper">Days the vehicle waits at auction before a carrier picks it up</div>
           </div>
 
@@ -527,7 +507,7 @@ input[type=number] { -moz-appearance: textfield; }
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input type="number" id="storageRate" class="has-prefix" min="0" step="1" value="25" placeholder="25" oninput="calcStep5()">
+              <input type="number" id="storageRate" class="has-prefix" min="0" step="1" value="25" placeholder="25" oninput="calcStep4()">
             </div>
             <div class="field-helper">Industry range: $10–$45/day depending on auction</div>
           </div>
@@ -538,7 +518,7 @@ input[type=number] { -moz-appearance: textfield; }
             </label>
             <div class="pct-group" style="margin-top:0; padding:16px 20px;">
               <div class="pct-row">
-                <input type="range" class="pct-slider" id="storagePct" min="0" max="100" value="50" oninput="calcStep5()">
+                <input type="range" class="pct-slider" id="storagePct" min="0" max="100" value="50" oninput="calcStep4()">
                 <span class="pct-value" id="storagePctVal">50%</span>
               </div>
             </div>
@@ -566,16 +546,16 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(4)">&larr; Back</button>
-          <button class="btn btn-primary" onclick="goToStep(6)">Next: Manager Time &rarr;</button>
+          <button class="btn btn-secondary" onclick="goToStep(3)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goToStep(5)">Next: Manager Time &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 6: Manager Time -->
-    <div class="step-view" id="step-6">
+    <!-- STEP 5: Manager Time -->
+    <div class="step-view" id="step-5">
       <div class="step-content">
-        <div class="step-tag">Step 6 of 8 &middot; Optional</div>
+        <div class="step-tag">Step 5 of 7 &middot; Optional</div>
         <h2 class="step-title">Manager Time</h2>
         <p class="step-description">Every VIN requires someone to post the load, vet carriers, confirm insurance, chase updates, cut a check, and reconcile the GL. Dealers who track this time report 40–60 minutes per vehicle — all billed to your team's capacity.</p>
 
@@ -584,7 +564,7 @@ input[type=number] { -moz-appearance: textfield; }
             <label class="field-label">Time Spent Per Vehicle (minutes)
               <span class="tooltip-icon">?<span class="tooltip-text">Average minutes your team spends managing transport for one vehicle — posting, carrier vetting, insurance checks, tracking calls, payment processing, and GL reconciliation.</span></span>
             </label>
-            <input type="number" id="mgmtMin" min="0" value="50" placeholder="50" oninput="calcStep6()">
+            <input type="number" id="mgmtMin" min="0" value="50" placeholder="50" oninput="calcStep5()">
             <div class="field-helper">Industry average: 40–60 min per vehicle for broker-managed loads</div>
           </div>
 
@@ -594,7 +574,7 @@ input[type=number] { -moz-appearance: textfield; }
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input type="number" id="mgmtHourly" class="has-prefix" min="0" step="5" value="60" placeholder="60" oninput="calcStep6()">
+              <input type="number" id="mgmtHourly" class="has-prefix" min="0" step="5" value="60" placeholder="60" oninput="calcStep5()">
             </div>
             <div class="field-helper">Salary + benefits + overhead — typical range: $50–$75/hr</div>
           </div>
@@ -613,17 +593,17 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(5)">&larr; Back</button>
-          <button class="btn btn-skip" onclick="goToStep(7)">Skip this step</button>
-          <button class="btn btn-primary" onclick="goToStep(7)">Next: Arbitration Risk &rarr;</button>
+          <button class="btn btn-secondary" onclick="goToStep(4)">&larr; Back</button>
+          <button class="btn btn-skip" onclick="goToStep(6)">Skip this step</button>
+          <button class="btn btn-primary" onclick="goToStep(6)">Next: Arbitration Risk &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 7: Arbitration Risk -->
-    <div class="step-view" id="step-7">
+    <!-- STEP 6: Arbitration Risk -->
+    <div class="step-view" id="step-6">
       <div class="step-content">
-        <div class="step-tag">Step 7 of 8 &middot; Optional</div>
+        <div class="step-tag">Step 6 of 7 &middot; Optional</div>
         <h2 class="step-title">Arbitration Risk</h2>
         <p class="step-description">NAAA rules give buyers 7–10 calendar days to file a claim. Slow transit eats into that window — and when it closes, undisclosed defects become your problem. A single missed window typically costs $2,000–$4,600 in repairs, return transport, and lost gross.</p>
 
@@ -633,7 +613,7 @@ input[type=number] { -moz-appearance: textfield; }
               <span class="tooltip-icon">?<span class="tooltip-text">Estimated percentage of purchased vehicles that arrive with undisclosed mechanical, structural, or title issues that would qualify for arbitration if caught in time. Industry benchmark: 1–3%.</span></span>
             </label>
             <div class="input-wrap">
-              <input type="number" id="arbVehiclePct" class="has-suffix" min="0" max="100" step="0.5" value="2" placeholder="2" oninput="calcStep7()">
+              <input type="number" id="arbVehiclePct" class="has-suffix" min="0" max="100" step="0.5" value="2" placeholder="2" oninput="calcStep6()">
               <span class="input-suffix">%</span>
             </div>
             <div class="field-helper">Industry benchmark: 1–3% of vehicles have qualifying issues</div>
@@ -645,7 +625,7 @@ input[type=number] { -moz-appearance: textfield; }
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input type="number" id="arbCost" class="has-prefix" min="0" step="100" value="2000" placeholder="2000" oninput="calcStep7()">
+              <input type="number" id="arbCost" class="has-prefix" min="0" step="100" value="2000" placeholder="2000" oninput="calcStep6()">
             </div>
             <div class="field-helper">Repair + return transport + lost gross — range: $2,000–$4,600</div>
           </div>
@@ -664,15 +644,15 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(6)">&larr; Back</button>
-          <button class="btn btn-skip" onclick="goToStep(8)">Skip this step</button>
-          <button class="btn btn-primary" onclick="goToStep(8)">View Results &rarr;</button>
+          <button class="btn btn-secondary" onclick="goToStep(5)">&larr; Back</button>
+          <button class="btn btn-skip" onclick="goToStep(7)">Skip this step</button>
+          <button class="btn btn-primary" onclick="goToStep(7)">View Results &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 8: Results -->
-    <div class="step-view" id="step-8">
+    <!-- STEP 7: Results -->
+    <div class="step-view" id="step-7">
       <div class="step-content">
         <div class="print-brand">Auto Hauler Exchange — Dealer True Landed Cost Calculator</div>
         <div class="step-tag">Results</div>
@@ -784,7 +764,7 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(7)">&larr; Back to Edit</button>
+          <button class="btn btn-secondary" onclick="goToStep(6)">&larr; Back to Edit</button>
           <span></span>
         </div>
       </div>
@@ -814,13 +794,13 @@ function fmtDec(n, places) {
 }
 
 function goToStep(n) {
-  if (n < 1 || n > 8) return;
+  if (n < 1 || n > 7) return;
   document.querySelectorAll('.step-view').forEach(el => el.classList.remove('active'));
   $('step-' + n).classList.add('active');
   state.visitedSteps.add(n);
   state.currentStep = n;
   updateNav();
-  if (n === 8) updateResults();
+  if (n === 7) updateResults();
   window.scrollTo(0, 0);
 }
 
@@ -831,7 +811,7 @@ function updateNav() {
     if (s === state.currentStep) el.classList.add('active');
     else if (state.visitedSteps.has(s) && s < state.currentStep) el.classList.add('completed');
   });
-  $('mobileStep').textContent = 'Step ' + state.currentStep + ' of 8';
+  $('mobileStep').textContent = 'Step ' + state.currentStep + ' of 7';
 }
 
 function updateSidebar() {
@@ -849,14 +829,11 @@ function updateSidebar() {
   $('sc-labor').textContent = pu.labor > 0 ? fmtDec(pu.labor) : '$0';
   $('sc-arb').textContent = pu.arb > 0 ? fmtDec(pu.arb) : '$0';
 
-  if (state.currentStep === 8) updateResults();
+  if (state.currentStep === 7) updateResults();
 }
 
-// Step 2
-function calcStep2() { updateSidebar(); }
-
-// Step 3 — broker margin extracted from quote, not added
-function calcStep3() {
+// Step 2 — transport basics (volume + invoice combined)
+function calcStep2() {
   const quote = val('brokerQuote');
   const markupAmt = quote * BROKER_MARKUP;
   const carrierPay = quote * (1 - BROKER_MARKUP);
@@ -871,8 +848,8 @@ function calcStep3() {
   updateSidebar();
 }
 
-// Step 4 — floor plan interest during transit
-function calcStep4() {
+// Step 3 — floor plan interest during transit
+function calcStep3() {
   const avgPrice = val('avgPrice');
   const fpRate = val('fpRate') / 100;
   const transitDays = val('currentTransitDays');
@@ -888,8 +865,8 @@ function calcStep4() {
   updateSidebar();
 }
 
-// Step 5 — auction storage
-function calcStep5() {
+// Step 4 — auction storage
+function calcStep4() {
   $('storagePctVal').textContent = Math.round(val('storagePct')) + '%';
   const gracePeriod = val('gracePeriod');
   const pickupDays = val('avgPickupDays');
@@ -911,8 +888,8 @@ function calcStep5() {
   updateSidebar();
 }
 
-// Step 6 — manager time
-function calcStep6() {
+// Step 5 — manager time
+function calcStep5() {
   const minCurrent = val('mgmtMin');
   const hourly = val('mgmtHourly');
   const laborPerUnit = (minCurrent / 60) * hourly;
@@ -925,8 +902,8 @@ function calcStep6() {
   updateSidebar();
 }
 
-// Step 7 — arbitration risk (100% attributable to slow transit)
-function calcStep7() {
+// Step 6 — arbitration risk (100% attributable to slow transit)
+function calcStep6() {
   const vehiclePct = val('arbVehiclePct') / 100;
   const cost = val('arbCost');
   const arbPerUnit = vehiclePct * cost;
@@ -993,7 +970,7 @@ function updateResults() {
   const ahxAnnual = ahxMonthly * 12;
 
   $('ahx-per-unit').textContent = ahxPerUnit > 0 ? '~' + fmt(ahxPerUnit) : '—';
-  $('ahx-monthly').textContent = ahxMonthly > 0 ? '~' + fmt(ahxMonthly) : (ahxPerUnit > 0 ? 'Enter volume in Step 2' : '—');
+  $('ahx-monthly').textContent = ahxMonthly > 0 ? '~' + fmt(ahxMonthly) : (ahxPerUnit > 0 ? 'Enter volume in Step 2' : '—'); // step ref unchanged (still step 2)
   $('ahx-annual').textContent = ahxAnnual > 0 ? '~' + fmt(ahxAnnual) : '—';
 }
 
