@@ -21,7 +21,6 @@
   --green: #18ad3a;
   --green-bg: rgba(24, 173, 58, 0.12);
   --red: #e85454;
-  --blue: #0026be;
   --text: #ffffff;
   --text-muted: #8a96b8;
   --text-dim: #525c80;
@@ -87,9 +86,9 @@ body {
 .sidebar-cost-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 0.75rem; }
 .sidebar-cost-label { color: var(--text-muted); }
 .sidebar-cost-value { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
-.sidebar-cost-row.total { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 6px; }
-.sidebar-cost-row.total .sidebar-cost-label { color: var(--text); font-weight: 600; font-size: 0.8rem; }
-.sidebar-cost-row.total .sidebar-cost-value { color: var(--accent); font-size: 0.9rem; }
+.sidebar-cost-row.sub { padding: 2px 0 2px 12px; }
+.sidebar-cost-row.sub .sidebar-cost-label { color: var(--text-dim); font-size: 0.7rem; font-style: italic; }
+.sidebar-cost-row.sub .sidebar-cost-value { color: var(--text-dim); font-size: 0.7rem; }
 
 .step-content { max-width: 760px; margin: 0 auto; padding: 48px 40px 120px; width: 100%; }
 .step-view { display: none; animation: fadeIn 0.3s ease; }
@@ -129,7 +128,7 @@ input[type=number] { -moz-appearance: textfield; }
 
 .pct-group { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 24px; margin-top: 8px; }
 .pct-group-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 16px; }
-.pct-row { display: flex; align-items: center; gap: 16px; margin-bottom: 0; }
+.pct-row { display: flex; align-items: center; gap: 16px; }
 .pct-label { width: 200px; font-size: 0.8rem; color: var(--text-muted); flex-shrink: 0; }
 .pct-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 6px; background: var(--surface-raised); border-radius: 3px; outline: none; }
 .pct-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
@@ -140,13 +139,14 @@ input[type=number] { -moz-appearance: textfield; }
 .inline-results-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
 .result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
 .result-row:last-child { border-bottom: none; }
+.result-row.sub-row { padding: 4px 0 4px 16px; }
+.result-row.sub-row .result-label { font-size: 0.78rem; color: var(--text-dim); font-style: italic; }
+.result-row.sub-row .result-value { font-size: 0.78rem; color: var(--text-dim); }
 .result-label { font-size: 0.85rem; color: var(--text-muted); }
 .result-value { font-size: 0.95rem; font-weight: 700; color: var(--white); font-variant-numeric: tabular-nums; }
 .result-row.highlight { margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--accent); border-bottom: none; }
 .result-row.highlight .result-label { color: var(--accent); font-weight: 600; }
 .result-row.highlight .result-value { color: var(--accent); font-size: 1.1rem; }
-.result-row.savings-row .result-label { color: var(--green); font-weight: 600; }
-.result-row.savings-row .result-value { color: var(--green); }
 
 .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
 
@@ -168,49 +168,49 @@ input[type=number] { -moz-appearance: textfield; }
 .feature-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
 .feature-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.5; }
 
-/* Savings summary cards */
-.savings-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-.savings-card { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 20px 24px; text-align: center; }
-.savings-card.hero { background: var(--green-bg); border-color: var(--green); }
-.savings-card-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
-.savings-card.hero .savings-card-label { color: var(--green); }
-.savings-card-value { font-size: 1.8rem; font-weight: 800; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-variant-numeric: tabular-nums; }
-.savings-card.hero .savings-card-value { color: var(--green); }
-.savings-card-sub { font-size: 0.7rem; color: var(--text-dim); margin-top: 4px; }
+/* Results — period summary cards */
+.period-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px; }
+.period-card { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 18px 20px; text-align: center; }
+.period-card-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.period-card-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-variant-numeric: tabular-nums; }
 
-/* Period tabs */
-.results-period-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+/* Results table */
+.results-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.results-table th, .results-table td { padding: 13px 16px; text-align: left; font-size: 0.9rem; }
+.results-table thead th { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); border-bottom: 2px solid var(--border-strong); }
+.results-table thead .col-amount { text-align: right; }
+.results-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s ease; }
+.results-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+.results-table tbody tr.sub-row td { padding: 4px 16px 4px 28px; border-bottom: none; }
+.results-table tbody tr.sub-row .cat-label { font-size: 0.78rem; color: var(--text-dim); font-style: italic; }
+.results-table tbody tr.sub-row .col-amount { font-size: 0.78rem; color: var(--text-dim); font-weight: 500; }
+.results-table .cat-label { color: var(--text); font-weight: 500; }
+.results-table .col-amount { text-align: right; font-weight: 600; color: var(--white); font-variant-numeric: tabular-nums; }
+.results-table tfoot td { padding-top: 16px; border-top: 2px solid var(--accent); font-weight: 800; font-size: 1.05rem; }
+.results-table tfoot .cat-label { color: var(--white); }
+.results-table tfoot .col-amount { color: var(--accent); font-size: 1.1rem; }
+
+.results-period-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
 .period-tab { padding: 8px 20px; border-radius: var(--radius-pill); border: 1px solid var(--border-strong); background: transparent; color: var(--text-muted); font-family: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
 .period-tab.active { background: var(--accent); border-color: var(--accent); color: #000; }
 .period-tab:hover:not(.active) { border-color: var(--text-muted); color: var(--text); }
 
-/* Comparison table */
-.comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
-.comparison-table th, .comparison-table td { padding: 13px 16px; text-align: left; font-size: 0.9rem; }
-.comparison-table thead th { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); border-bottom: 2px solid var(--border-strong); }
-.comparison-table thead .col-current { color: var(--text-muted); }
-.comparison-table thead .col-ahx { color: var(--accent); }
-.comparison-table thead .col-savings { color: var(--green); }
-.comparison-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s ease; }
-.comparison-table tbody tr:hover { background: var(--surface); }
-.comparison-table .cat-label { color: var(--text); font-weight: 500; }
-.comparison-table .col-current { text-align: right; font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-.comparison-table .col-ahx { text-align: right; font-weight: 600; color: var(--white); font-variant-numeric: tabular-nums; }
-.comparison-table .col-savings { text-align: right; font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; }
-.comparison-table .col-savings.zero { color: var(--text-dim); }
-.comparison-table tfoot td { padding-top: 16px; border-top: 2px solid var(--border-strong); font-weight: 800; font-size: 1rem; }
-.comparison-table tfoot .cat-label { color: var(--white); }
-.comparison-table tfoot .col-current { color: var(--red); font-size: 1.05rem; }
-.comparison-table tfoot .col-ahx { color: var(--accent); font-size: 1.05rem; }
-.comparison-table tfoot .col-savings { color: var(--green); font-size: 1.1rem; }
+.table-note { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6; }
 
-.table-note { font-size: 0.72rem; color: var(--text-dim); margin-top: -16px; margin-bottom: 32px; line-height: 1.6; }
+/* AHX savings estimate */
+.ahx-estimate { background: var(--green-bg); border: 1px solid var(--green); border-radius: var(--radius-md); padding: 28px 32px; margin-bottom: 24px; }
+.ahx-estimate-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+.ahx-estimate-headline { font-size: 1.3rem; font-weight: 800; color: var(--white); font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; margin-bottom: 8px; line-height: 1.2; }
+.ahx-estimate-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+.ahx-estimate-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ahx-num { text-align: center; }
+.ahx-num-value { font-size: 1.6rem; font-weight: 800; color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-variant-numeric: tabular-nums; }
+.ahx-num-label { font-size: 0.7rem; color: var(--text-dim); margin-top: 2px; }
+.ahx-estimate-disclaimer { font-size: 0.72rem; color: var(--text-dim); margin-top: 16px; line-height: 1.5; }
 
 .callout { background: var(--surface); border-top: 3px solid var(--accent); border-radius: 0 0 var(--radius-md) var(--radius-md); padding: 24px 28px; margin-bottom: 20px; }
 .callout-title { font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
 .callout-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
-.callout.green { border-top-color: var(--green); }
-.callout.green .callout-title { color: var(--green); }
 
 .results-actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 
@@ -221,14 +221,13 @@ input[type=number] { -moz-appearance: textfield; }
   body { background: white !important; color: #1a1a1a !important; }
   .step-title { color: #04072f !important; }
   .step-tag { color: #e89700 !important; }
-  .savings-card { background: #f5f5f5 !important; border-color: #ddd !important; }
-  .savings-card.hero { background: #e8f5e9 !important; border-color: #18ad3a !important; }
-  .savings-card-value { color: #04072f !important; }
-  .savings-card.hero .savings-card-value { color: #18ad3a !important; }
-  .comparison-table th, .comparison-table td { color: #1a1a1a !important; }
-  .comparison-table .col-savings { color: #18ad3a !important; }
-  .comparison-table tfoot .col-current { color: #e85454 !important; }
-  .comparison-table tfoot .col-ahx { color: #e89700 !important; }
+  .period-card { background: #f5f5f5 !important; border-color: #ddd !important; }
+  .period-card-value { color: #e89700 !important; }
+  .results-table th, .results-table td { color: #1a1a1a !important; }
+  .results-table .col-amount { color: #04072f !important; }
+  .results-table tfoot .col-amount { color: #e89700 !important; }
+  .ahx-estimate { background: #e8f5e9 !important; border-color: #18ad3a !important; }
+  .ahx-num-value { color: #18ad3a !important; }
   .callout { background: #f5f5f5 !important; }
   .print-brand { display: block !important; text-align: center; margin-bottom: 24px; font-size: 0.8rem; color: #999; }
 }
@@ -244,8 +243,8 @@ input[type=number] { -moz-appearance: textfield; }
   .form-grid { grid-template-columns: 1fr; }
   .welcome-features { grid-template-columns: 1fr; }
   .welcome-hero .step-title { font-size: 2.4rem; }
-  .savings-summary { grid-template-columns: 1fr; }
-  .comparison-table th:nth-child(2), .comparison-table td:nth-child(2) { display: none; }
+  .period-summary { grid-template-columns: 1fr 1fr; }
+  .ahx-estimate-numbers { grid-template-columns: 1fr; }
 }
 .mobile-header { display: none; }
 </style>
@@ -276,7 +275,7 @@ input[type=number] { -moz-appearance: textfield; }
       </div>
       <div class="step-indicator" data-step="3" onclick="goToStep(3)">
         <div class="step-dot"><span class="step-number">3</span></div>
-        <span class="step-label">Broker Markup</span>
+        <span class="step-label">Transport Invoice</span>
       </div>
       <div class="step-indicator" data-step="4" onclick="goToStep(4)">
         <div class="step-dot"><span class="step-number">4</span></div>
@@ -305,8 +304,8 @@ input[type=number] { -moz-appearance: textfield; }
         <span class="sidebar-cost-label">Transport invoice</span>
         <span class="sidebar-cost-value" id="sc-transport">$0</span>
       </div>
-      <div class="sidebar-cost-row">
-        <span class="sidebar-cost-label">Broker markup</span>
+      <div class="sidebar-cost-row sub">
+        <span class="sidebar-cost-label">~25% broker margin</span>
         <span class="sidebar-cost-value" id="sc-markup">$0</span>
       </div>
       <div class="sidebar-cost-row">
@@ -341,22 +340,22 @@ input[type=number] { -moz-appearance: textfield; }
         <div class="welcome-hero">
           <div class="step-tag">Dealer True Landed Cost Calculator</div>
           <h1 class="step-title">What does a vehicle really cost to land?</h1>
-          <p class="step-description">Your broker quotes you $1,125. But by the time that vehicle is on your lot, the true cost is often $400–$600 higher. This calculator surfaces every hidden layer — broker markup, floor plan interest, auction storage, admin time, and arbitration risk — so you can see your real number.</p>
+          <p class="step-description">Your broker quotes you a price. But by the time that vehicle is on your lot, the true cost is often hundreds of dollars higher. This calculator surfaces every hidden layer — broker markup, floor plan interest, auction storage, admin time, and arbitration risk — so you can see your real number.</p>
           <div class="welcome-features">
             <div class="feature-card">
               <div class="feature-icon">&#9638;</div>
               <div class="feature-title">5 Hidden Cost Layers</div>
-              <div class="feature-desc">The costs that don't appear on your transport invoice — but show up on your P&L.</div>
+              <div class="feature-desc">The costs that don't appear on your transport invoice — but show up on your P&amp;L.</div>
             </div>
             <div class="feature-card">
               <div class="feature-icon">&#9670;</div>
-              <div class="feature-title">Side-by-Side Comparison</div>
-              <div class="feature-desc">See your current true landed cost vs. what you'd pay with direct carrier access.</div>
+              <div class="feature-title">True Landed Cost</div>
+              <div class="feature-desc">See the full picture — per vehicle, weekly, monthly, and annually.</div>
             </div>
             <div class="feature-card">
               <div class="feature-icon">&#9700;</div>
-              <div class="feature-title">Your Savings Potential</div>
-              <div class="feature-desc">Per vehicle, monthly, and annual savings — calculated from your own numbers.</div>
+              <div class="feature-title">Your Numbers</div>
+              <div class="feature-desc">Enter your own data. No assumptions beyond industry benchmarks where noted.</div>
             </div>
           </div>
           <button class="btn btn-primary btn-large" onclick="goToStep(2)">Calculate My True Cost &rarr;</button>
@@ -370,7 +369,7 @@ input[type=number] { -moz-appearance: textfield; }
       <div class="step-content">
         <div class="step-tag">Step 2 of 8</div>
         <h2 class="step-title">Your Transport Volume</h2>
-        <p class="step-description">Start with two baseline numbers: how many vehicles you transport each month, and the average purchase price. These carry through to your floor plan interest and total savings calculations.</p>
+        <p class="step-description">Start with two baseline numbers: how many vehicles you transport each month, and the average purchase price. These carry through to your floor plan interest and total cost calculations.</p>
 
         <div class="form-grid">
           <div class="field">
@@ -383,72 +382,59 @@ input[type=number] { -moz-appearance: textfield; }
 
           <div class="field">
             <label class="field-label">Average Vehicle Purchase Price
-              <span class="tooltip-icon">?<span class="tooltip-text">Your average auction purchase price per vehicle. Used to calculate daily floor plan interest accrual.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">Your average auction purchase price per vehicle. Used to calculate daily floor plan interest accrual from the moment of purchase.</span></span>
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
               <input type="number" id="avgPrice" class="has-prefix" min="0" step="500" placeholder="e.g. 18000" oninput="calcStep2()">
             </div>
-            <div class="field-helper">Floor plan interest accrues from auction purchase date</div>
+            <div class="field-helper">Floor plan interest starts accruing at auction purchase</div>
           </div>
         </div>
 
         <div class="nav-bar">
           <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
-          <button class="btn btn-primary" onclick="goToStep(3)">Next: Broker Markup &rarr;</button>
+          <button class="btn btn-primary" onclick="goToStep(3)">Next: Transport Invoice &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 3: Broker Markup -->
+    <!-- STEP 3: Transport Invoice -->
     <div class="step-view" id="step-3">
       <div class="step-content">
         <div class="step-tag">Step 3 of 8</div>
-        <h2 class="step-title">Broker Markup</h2>
-        <p class="step-description">Most brokers quote a single "all-in" price that conceals a 20–30% margin. Only about $800 of a typical $1,125 quote actually reaches the carrier — the rest is the broker's cut, invisible on the invoice.</p>
+        <h2 class="step-title">Transport Invoice</h2>
+        <p class="step-description">Enter what you currently pay per vehicle. Industry data shows that ~25% of a typical broker quote goes to broker margin — the carrier receives the other ~75%. That margin is built into the price you see, not added on top.</p>
 
         <div class="form-grid">
-          <div class="field">
+          <div class="field full-width">
             <label class="field-label">Average Transport Quote Per Vehicle
-              <span class="tooltip-icon">?<span class="tooltip-text">The all-in price your broker or transport service quotes per vehicle. This is what you currently pay, not what the carrier receives.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">The all-in price your broker or transport service quotes per vehicle. This is the number on your invoice. Industry data suggests ~25% of this typically represents broker margin, with the remaining ~75% reaching the carrier.</span></span>
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
               <input type="number" id="brokerQuote" class="has-prefix" min="0" step="25" placeholder="e.g. 1125" oninput="calcStep3()">
             </div>
-            <div class="field-helper">The price on your transport invoice, per vehicle</div>
-          </div>
-
-          <div class="field">
-            <label class="field-label">Estimated Broker Markup
-              <span class="tooltip-icon">?<span class="tooltip-text">Industry average is 20–30%. This is the portion of your invoice that goes to the broker rather than the carrier who actually moves your vehicle.</span></span>
-            </label>
-            <div class="pct-group" style="margin-top:0; padding:16px 20px;">
-              <div class="pct-row">
-                <input type="range" class="pct-slider" id="markupPct" min="0" max="50" value="25" oninput="calcStep3()">
-                <span class="pct-value" id="markupPctVal">25%</span>
-              </div>
-            </div>
-            <div class="field-helper">Industry range: 20–30%. Default set to 25%.</div>
+            <div class="field-helper">The price on your transport invoice per vehicle</div>
           </div>
         </div>
 
         <div class="inline-results">
-          <div class="inline-results-title">Calculated Costs — Per Vehicle</div>
+          <div class="inline-results-title">Cost Breakdown — Per Vehicle</div>
           <div class="result-row">
-            <span class="result-label">Implied carrier pay</span>
+            <span class="result-label">Carrier receives (~75% of invoice)</span>
             <span class="result-value" id="r3-carrier">—</span>
           </div>
           <div class="result-row">
-            <span class="result-label">Broker margin per vehicle</span>
+            <span class="result-label">Broker margin within your invoice (~25%)</span>
             <span class="result-value" id="r3-margin">—</span>
           </div>
           <div class="result-row">
-            <span class="result-label">Monthly broker margin (all vehicles)</span>
+            <span class="result-label">Monthly transport spend</span>
             <span class="result-value" id="r3-monthly">—</span>
           </div>
           <div class="result-row highlight">
-            <span class="result-label">Annual broker margin paid out</span>
+            <span class="result-label">Annual transport spend</span>
             <span class="result-value" id="r3-annual">—</span>
           </div>
         </div>
@@ -465,12 +451,12 @@ input[type=number] { -moz-appearance: textfield; }
       <div class="step-content">
         <div class="step-tag">Step 4 of 8</div>
         <h2 class="step-title">Floor Plan Interest</h2>
-        <p class="step-description">Floor plan interest starts the moment the hammer falls at auction — before the vehicle has moved an inch. Every extra day in transit is a day of interest you're paying with no vehicle on the lot to show for it.</p>
+        <p class="step-description">Floor plan interest starts the moment the hammer falls at auction — before the vehicle has moved an inch. Every day in transit is a day of interest you're paying with no vehicle on the lot to show for it.</p>
 
         <div class="form-grid">
           <div class="field">
             <label class="field-label">Floor Plan Interest Rate (annual)
-              <span class="tooltip-icon">?<span class="tooltip-text">Your annual floor plan interest rate as a percentage. The industry example from AHX research: 7.3% annual = ~$18/day on a $90K vehicle.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">Your annual floor plan interest rate as a percentage. Example: at 7.3% annual, a $90,000 vehicle accrues roughly $18/day in floor plan interest.</span></span>
             </label>
             <div class="input-wrap">
               <input type="number" id="fpRate" class="has-suffix" min="0" max="30" step="0.1" placeholder="e.g. 7.3" oninput="calcStep4()">
@@ -480,11 +466,11 @@ input[type=number] { -moz-appearance: textfield; }
           </div>
 
           <div class="field">
-            <label class="field-label">Average Days in Transit (current)
-              <span class="tooltip-icon">?<span class="tooltip-text">Average number of days from auction purchase to vehicle arriving on your lot with your current transport setup. Industry data: broker-arranged transport averages 12 days; AHX averages 4 days.</span></span>
+            <label class="field-label">Average Days in Transit (door to door)
+              <span class="tooltip-icon">?<span class="tooltip-text">Average number of days from auction purchase to vehicle arriving on your lot. This includes time at auction before pickup plus transit time. Industry data: broker-arranged transport averages 10–14 days total.</span></span>
             </label>
             <input type="number" id="currentTransitDays" min="0" step="0.5" placeholder="e.g. 12" oninput="calcStep4()">
-            <div class="field-helper">Broker average: ~12 days &middot; AHX average: 4 days</div>
+            <div class="field-helper">From auction purchase date to lot arrival</div>
           </div>
         </div>
 
@@ -495,16 +481,12 @@ input[type=number] { -moz-appearance: textfield; }
             <span class="result-value" id="r4-daily">—</span>
           </div>
           <div class="result-row">
-            <span class="result-label">Floor plan interest during transit (current)</span>
+            <span class="result-label">Floor plan interest accrued during transit</span>
             <span class="result-value" id="r4-current">—</span>
           </div>
-          <div class="result-row">
-            <span class="result-label">Floor plan interest during transit (AHX 4-day)</span>
-            <span class="result-value" id="r4-ahx">—</span>
-          </div>
           <div class="result-row highlight">
-            <span class="result-label">Floor plan savings per vehicle with AHX</span>
-            <span class="result-value" id="r4-savings">—</span>
+            <span class="result-label">Monthly floor plan cost during transit</span>
+            <span class="result-value" id="r4-monthly">—</span>
           </div>
         </div>
 
@@ -520,28 +502,28 @@ input[type=number] { -moz-appearance: textfield; }
       <div class="step-content">
         <div class="step-tag">Step 5 of 8</div>
         <h2 class="step-title">Auction Storage Fees</h2>
-        <p class="step-description">Storage fees start accumulating after the auction's grace period expires. Broker-arranged shipments frequently sit for multiple days before a carrier is assigned — and those extra days come out of your pocket.</p>
+        <p class="step-description">Storage fees start accumulating after the auction's grace period expires. When a carrier isn't assigned quickly, your vehicle sits — and those extra days come directly out of your margin.</p>
 
         <div class="form-grid">
           <div class="field">
             <label class="field-label">Auction Grace Period (days)
-              <span class="tooltip-icon">?<span class="tooltip-text">Number of free storage days the auction provides after purchase. Common grace periods: ADESA 7 days, Manheim varies by location. Check your specific auction's terms.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">Number of free storage days the auction provides after purchase before fees begin. Common: ADESA 7 days, Manheim varies by location. Check your specific auction's terms.</span></span>
             </label>
             <input type="number" id="gracePeriod" min="0" value="7" placeholder="7" oninput="calcStep5()">
-            <div class="field-helper">Days of free storage before fees begin — often 7 days</div>
+            <div class="field-helper">Free storage days before fees begin — often 7 days</div>
           </div>
 
           <div class="field">
-            <label class="field-label">Average Days Until Pickup (current)
-              <span class="tooltip-icon">?<span class="tooltip-text">Average number of days from auction purchase until the carrier picks up the vehicle. Broker-posted shipments often sit 4–7+ days before a carrier accepts.</span></span>
+            <label class="field-label">Average Days Until Carrier Pickup
+              <span class="tooltip-icon">?<span class="tooltip-text">Average number of days from auction purchase until the carrier physically picks up the vehicle. This is separate from total transit time — it's the time the vehicle sits waiting at auction for a carrier to be assigned and arrive.</span></span>
             </label>
             <input type="number" id="avgPickupDays" min="0" step="0.5" placeholder="e.g. 5" oninput="calcStep5()">
-            <div class="field-helper">How long before a carrier is assigned and picks up</div>
+            <div class="field-helper">Days the vehicle waits at auction before a carrier picks it up</div>
           </div>
 
           <div class="field">
             <label class="field-label">Storage Fee After Grace Period (per day)
-              <span class="tooltip-icon">?<span class="tooltip-text">Daily storage charge once the grace period expires. Ranges from $10–$25/day across major U.S. auction operators. ADESA example: $45/day after grace.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">Daily storage charge once the grace period expires. Ranges from $10–$45/day across major U.S. auction operators.</span></span>
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
@@ -552,7 +534,7 @@ input[type=number] { -moz-appearance: textfield; }
 
           <div class="field">
             <label class="field-label">% of Shipments Exceeding Grace Period
-              <span class="tooltip-icon">?<span class="tooltip-text">What percentage of your vehicles typically sit at auction past the free storage window? Even 30–50% is common with broker-managed loads.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">What percentage of your vehicles typically sit at auction past the free storage window before a carrier arrives?</span></span>
             </label>
             <div class="pct-group" style="margin-top:0; padding:16px 20px;">
               <div class="pct-row">
@@ -566,7 +548,7 @@ input[type=number] { -moz-appearance: textfield; }
         <div class="inline-results">
           <div class="inline-results-title">Calculated Costs — Per Vehicle</div>
           <div class="result-row">
-            <span class="result-label">Days exceeding grace period (current)</span>
+            <span class="result-label">Days exceeding grace period</span>
             <span class="result-value" id="r5-days">—</span>
           </div>
           <div class="result-row">
@@ -600,10 +582,10 @@ input[type=number] { -moz-appearance: textfield; }
         <div class="form-grid">
           <div class="field">
             <label class="field-label">Time Spent Per Vehicle (minutes)
-              <span class="tooltip-icon">?<span class="tooltip-text">Average minutes your team spends managing transport for one vehicle — posting, carrier vetting, insurance checks, tracking calls, payment processing, and GL reconciliation. Industry average: 40–60 min with brokers; ~10 min with AHX.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">Average minutes your team spends managing transport for one vehicle — posting, carrier vetting, insurance checks, tracking calls, payment processing, and GL reconciliation.</span></span>
             </label>
             <input type="number" id="mgmtMin" min="0" value="50" placeholder="50" oninput="calcStep6()">
-            <div class="field-helper">Broker average: 40–60 min per VIN &middot; AHX: ~10 min</div>
+            <div class="field-helper">Industry average: 40–60 min per vehicle for broker-managed loads</div>
           </div>
 
           <div class="field">
@@ -621,16 +603,12 @@ input[type=number] { -moz-appearance: textfield; }
         <div class="inline-results">
           <div class="inline-results-title">Calculated Costs — Per Vehicle</div>
           <div class="result-row">
-            <span class="result-label">Labor cost per vehicle (current)</span>
+            <span class="result-label">Labor cost per vehicle</span>
             <span class="result-value" id="r6-current">—</span>
           </div>
-          <div class="result-row">
-            <span class="result-label">Labor cost per vehicle (AHX 10-min workflow)</span>
-            <span class="result-value" id="r6-ahx">—</span>
-          </div>
           <div class="result-row highlight">
-            <span class="result-label">Monthly labor savings with AHX</span>
-            <span class="result-value" id="r6-savings">—</span>
+            <span class="result-label">Monthly labor cost (all vehicles)</span>
+            <span class="result-value" id="r6-monthly">—</span>
           </div>
         </div>
 
@@ -647,12 +625,12 @@ input[type=number] { -moz-appearance: textfield; }
       <div class="step-content">
         <div class="step-tag">Step 7 of 8 &middot; Optional</div>
         <h2 class="step-title">Arbitration Risk</h2>
-        <p class="step-description">NAAA rules give buyers 7–10 calendar days to file an arbitration claim. When slow transit eats into that window, undisclosed defects become your problem — costing $2,000–$4,000 per incident in repairs, return transport, and lost gross.</p>
+        <p class="step-description">NAAA rules give buyers 7–10 calendar days to file a claim. Slow transit eats into that window — and when it closes, undisclosed defects become your problem. A single missed window typically costs $2,000–$4,600 in repairs, return transport, and lost gross.</p>
 
         <div class="form-grid">
           <div class="field">
             <label class="field-label">% of Vehicles with Undisclosed Defects
-              <span class="tooltip-icon">?<span class="tooltip-text">Estimated percentage of purchased vehicles that arrive with undisclosed mechanical, structural, or title issues that would qualify for arbitration if caught in time.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">Estimated percentage of purchased vehicles that arrive with undisclosed mechanical, structural, or title issues that would qualify for arbitration if caught in time. Industry benchmark: 1–3%.</span></span>
             </label>
             <div class="input-wrap">
               <input type="number" id="arbVehiclePct" class="has-suffix" min="0" max="100" step="0.5" value="2" placeholder="2" oninput="calcStep7()">
@@ -663,43 +641,25 @@ input[type=number] { -moz-appearance: textfield; }
 
           <div class="field">
             <label class="field-label">Avg Out-of-Pocket Cost Per Missed Window
-              <span class="tooltip-icon">?<span class="tooltip-text">When arbitration is missed: average repair $1,000–$3,000 + return transport $400–$800 + lost gross while grounded $800+. Total per incident: $2,000–$4,600.</span></span>
+              <span class="tooltip-icon">?<span class="tooltip-text">When arbitration is missed: average repair $1,000–$3,000 + return transport $400–$800 + lost gross while grounded $800+. Total per incident typically runs $2,000–$4,600.</span></span>
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
               <input type="number" id="arbCost" class="has-prefix" min="0" step="100" value="2000" placeholder="2000" oninput="calcStep7()">
             </div>
-            <div class="field-helper">Repair + return transport + lost gross — industry range: $2,000–$4,600</div>
-          </div>
-
-          <div class="field full-width">
-            <label class="field-label">% of Missed Windows Attributable to Slow Transit
-              <span class="tooltip-icon">?<span class="tooltip-text">Of the arbitration windows you've missed, what percentage were missed because the vehicle arrived so late that there wasn't enough time to inspect it before the window closed?</span></span>
-            </label>
-            <div class="pct-group" style="margin-top:0; padding:16px 20px;">
-              <div class="pct-row">
-                <span class="pct-label" style="width:320px;">% caused by slow delivery</span>
-                <input type="range" class="pct-slider" id="arbTransitPct" min="0" max="100" value="30" oninput="calcStep7()">
-                <span class="pct-value" id="arbTransitPctVal">30%</span>
-              </div>
-            </div>
-            <div class="field-helper">Conservative estimate: 30% — adjust up if you've had late-delivery misses</div>
+            <div class="field-helper">Repair + return transport + lost gross — range: $2,000–$4,600</div>
           </div>
         </div>
 
         <div class="inline-results">
           <div class="inline-results-title">Calculated Risk Exposure — Per Vehicle</div>
           <div class="result-row">
-            <span class="result-label">Risk-adjusted arbitration cost per vehicle (current)</span>
+            <span class="result-label">Risk-adjusted arbitration cost per vehicle</span>
             <span class="result-value" id="r7-current">—</span>
           </div>
-          <div class="result-row">
-            <span class="result-label">Risk-adjusted cost with AHX (4-day delivery)</span>
-            <span class="result-value" id="r7-ahx">—</span>
-          </div>
           <div class="result-row highlight">
-            <span class="result-label">Monthly arbitration risk reduction</span>
-            <span class="result-value" id="r7-savings">—</span>
+            <span class="result-label">Monthly arbitration exposure</span>
+            <span class="result-value" id="r7-monthly">—</span>
           </div>
         </div>
 
@@ -717,97 +677,105 @@ input[type=number] { -moz-appearance: textfield; }
         <div class="print-brand">Auto Hauler Exchange — Dealer True Landed Cost Calculator</div>
         <div class="step-tag">Results</div>
         <h2 class="step-title">Your True Landed Cost</h2>
-        <p class="step-description">Here's what each vehicle actually costs you to land — and what it would cost with direct carrier access through AHX.</p>
+        <p class="step-description">Here's what each vehicle actually costs to land on your lot — broken down by cost layer and totaled across every time period.</p>
 
-        <!-- Savings summary cards -->
-        <div class="savings-summary">
-          <div class="savings-card hero">
-            <div class="savings-card-label">Savings Per Vehicle</div>
-            <div class="savings-card-value" id="rs-per-unit">—</div>
-            <div class="savings-card-sub">with AHX vs. current setup</div>
+        <!-- Period summary cards -->
+        <div class="period-summary">
+          <div class="period-card">
+            <div class="period-card-label">Per Vehicle</div>
+            <div class="period-card-value" id="ps-unit">—</div>
           </div>
-          <div class="savings-card">
-            <div class="savings-card-label">Monthly Savings</div>
-            <div class="savings-card-value" id="rs-monthly">—</div>
-            <div class="savings-card-sub" id="rs-monthly-sub">—</div>
+          <div class="period-card">
+            <div class="period-card-label">Weekly</div>
+            <div class="period-card-value" id="ps-weekly">—</div>
           </div>
-          <div class="savings-card">
-            <div class="savings-card-label">Annual Savings</div>
-            <div class="savings-card-value" id="rs-annual">—</div>
-            <div class="savings-card-sub" id="rs-annual-sub">—</div>
+          <div class="period-card">
+            <div class="period-card-label">Monthly</div>
+            <div class="period-card-value" id="ps-monthly">—</div>
+          </div>
+          <div class="period-card">
+            <div class="period-card-label">Annual</div>
+            <div class="period-card-value" id="ps-annual">—</div>
           </div>
         </div>
 
-        <!-- Period toggle -->
+        <!-- Period tabs for breakdown table -->
         <div class="results-period-tabs">
           <button class="period-tab active" onclick="setPeriod('unit')">Per Vehicle</button>
+          <button class="period-tab" onclick="setPeriod('weekly')">Weekly</button>
           <button class="period-tab" onclick="setPeriod('monthly')">Monthly</button>
           <button class="period-tab" onclick="setPeriod('annual')">Annual</button>
         </div>
 
-        <!-- Comparison table -->
-        <table class="comparison-table">
+        <!-- Cost breakdown table -->
+        <table class="results-table">
           <thead>
             <tr>
               <th>Cost Category</th>
-              <th class="col-current" style="text-align:right">Current</th>
-              <th class="col-ahx" style="text-align:right">With AHX</th>
-              <th class="col-savings" style="text-align:right">Savings</th>
+              <th class="col-amount" id="rt-period-header">Per Vehicle</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="cat-label">Transport Invoice</td>
-              <td class="col-current" id="ct-transport-current">—</td>
-              <td class="col-ahx" id="ct-transport-ahx">—</td>
-              <td class="col-savings" id="ct-transport-savings">—</td>
+              <td class="col-amount" id="rt-transport">—</td>
+            </tr>
+            <tr class="sub-row">
+              <td class="cat-label">~25% broker margin (within invoice)</td>
+              <td class="col-amount" id="rt-markup">—</td>
             </tr>
             <tr>
-              <td class="cat-label">Floor Plan Interest</td>
-              <td class="col-current" id="ct-floorplan-current">—</td>
-              <td class="col-ahx" id="ct-floorplan-ahx">—</td>
-              <td class="col-savings" id="ct-floorplan-savings">—</td>
+              <td class="cat-label">Floor Plan Interest (in transit)</td>
+              <td class="col-amount" id="rt-floorplan">—</td>
             </tr>
             <tr>
-              <td class="cat-label">Auction Storage</td>
-              <td class="col-current" id="ct-storage-current">—</td>
-              <td class="col-ahx" id="ct-storage-ahx">—</td>
-              <td class="col-savings" id="ct-storage-savings">—</td>
+              <td class="cat-label">Auction Storage Fees</td>
+              <td class="col-amount" id="rt-storage">—</td>
             </tr>
             <tr>
               <td class="cat-label">Manager Time</td>
-              <td class="col-current" id="ct-labor-current">—</td>
-              <td class="col-ahx" id="ct-labor-ahx">—</td>
-              <td class="col-savings" id="ct-labor-savings">—</td>
+              <td class="col-amount" id="rt-labor">—</td>
             </tr>
             <tr>
               <td class="cat-label">Arbitration Risk</td>
-              <td class="col-current" id="ct-arb-current">—</td>
-              <td class="col-ahx" id="ct-arb-ahx">—</td>
-              <td class="col-savings" id="ct-arb-savings">—</td>
+              <td class="col-amount" id="rt-arb">—</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td class="cat-label">True Landed Cost</td>
-              <td class="col-current" id="ct-total-current">—</td>
-              <td class="col-ahx" id="ct-total-ahx">—</td>
-              <td class="col-savings" id="ct-total-savings">—</td>
+              <td class="col-amount" id="rt-total">—</td>
             </tr>
           </tfoot>
         </table>
 
-        <p class="table-note" id="results-table-note">Per vehicle. AHX transport reflects carrier pay (broker markup removed). AHX charges a transparent platform fee separately. Storage assumes AHX pickup within grace period. Manager time based on AHX 10-min workflow. Arbitration risk assumes near-elimination with 4-day delivery.</p>
+        <p class="table-note">Transport invoice total includes an estimated ~25% broker margin — this is extracted from your quoted price, not added on top. Arbitration risk is a probability-weighted exposure based on your inputs.</p>
 
-        <div style="margin-top:8px;">
-          <div class="callout">
-            <div class="callout-title">The hidden cost pattern</div>
-            <div class="callout-text">Your broker invoice is only the starting line. By the time a vehicle arrives — factoring in the markup you can't see, interest accruing daily, storage fees ticking up, and admin hours chasing updates — the true landed cost is hundreds of dollars above what was quoted. This gap is consistent, predictable, and recoverable.</div>
+        <!-- AHX savings estimate -->
+        <div class="ahx-estimate">
+          <div class="ahx-estimate-label">Estimated Savings with AHX</div>
+          <div class="ahx-estimate-headline">~20% Less Per Vehicle</div>
+          <div class="ahx-estimate-text">Dealers using AHX typically reduce their total true landed cost by around 20% — by eliminating broker markup, cutting transit to an average of 4 days, and replacing manual logistics work with an automated platform. On your numbers, that could look like:</div>
+          <div class="ahx-estimate-numbers">
+            <div class="ahx-num">
+              <div class="ahx-num-value" id="ahx-per-unit">—</div>
+              <div class="ahx-num-label">per vehicle</div>
+            </div>
+            <div class="ahx-num">
+              <div class="ahx-num-value" id="ahx-monthly">—</div>
+              <div class="ahx-num-label">per month</div>
+            </div>
+            <div class="ahx-num">
+              <div class="ahx-num-value" id="ahx-annual">—</div>
+              <div class="ahx-num-label">per year</div>
+            </div>
           </div>
-          <div class="callout green">
-            <div class="callout-title">How AHX closes the gap</div>
-            <div class="callout-text">Auto Hauler Exchange removes the broker, replacing opaque markup with a transparent platform fee. With 5,500+ vetted carriers booking loads in under 24 hours, transit averages 4 days — slashing floor plan interest, eliminating storage fees, and protecting your arbitration window on nearly every unit.</div>
-          </div>
+          <div class="ahx-estimate-disclaimer">Estimated savings based on industry benchmarks. Actual results vary by lane, volume, auction source, and current transport setup.</div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">The cost pattern</div>
+          <div class="callout-text">Your transport invoice is only the starting line. Broker margin, daily interest, storage fees, admin hours, and arbitration risk compound on every vehicle — and most of it never appears in a single view. The gap between your quoted price and your true landed cost is consistent, predictable, and worth understanding.</div>
         </div>
 
         <div class="results-actions">
@@ -826,22 +794,22 @@ input[type=number] { -moz-appearance: textfield; }
 </div>
 
 <script>
-const AHX_TRANSIT_DAYS = 4;
-const AHX_MGMT_MIN = 10;
+const BROKER_MARKUP = 0.25;
+const WEEKS_PER_MONTH = 4.333;
 
 const state = {
   currentStep: 1,
   visitedSteps: new Set([1]),
   period: 'unit',
-  perUnit: { transport: 0, markup: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 },
-  perUnitAHX: { transport: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 }
+  perUnit: { transport: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 }
+  // transport = full invoice (broker margin is within this, not additional)
 };
 
 function $(id) { return document.getElementById(id); }
 function val(id) { const el = $(id); return el ? parseFloat(el.value) || 0 : 0; }
 function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 function fmtDec(n, places) {
-  const p = places !== undefined ? places : (n < 10 ? 2 : n < 100 ? 1 : 0);
+  const p = places !== undefined ? places : 2;
   return '$' + n.toLocaleString('en-US', { minimumFractionDigits: p, maximumFractionDigits: p });
 }
 
@@ -868,60 +836,55 @@ function updateNav() {
 
 function updateSidebar() {
   const pu = state.perUnit;
-  const total = pu.transport + pu.markup + pu.floorplan + pu.storage + pu.labor + pu.arb;
-  $('sidebarTotal').textContent = total > 0 ? fmtDec(total, 0) : '$0';
+  // Total = transport (which already includes broker margin) + other costs
+  const total = pu.transport + pu.floorplan + pu.storage + pu.labor + pu.arb;
+  const markupAmt = pu.transport * BROKER_MARKUP;
+
+  $('sidebarTotal').textContent = total > 0 ? fmt(total) : '$0';
   $('mobileTotal').textContent = total > 0 ? fmt(total) : '$0';
-  $('sc-transport').textContent = pu.transport > 0 ? fmtDec(pu.transport, 0) : '$0';
-  $('sc-markup').textContent = pu.markup > 0 ? fmtDec(pu.markup, 0) : '$0';
-  $('sc-floorplan').textContent = pu.floorplan > 0 ? fmtDec(pu.floorplan, 2) : '$0';
-  $('sc-storage').textContent = pu.storage > 0 ? fmtDec(pu.storage, 2) : '$0';
-  $('sc-labor').textContent = pu.labor > 0 ? fmtDec(pu.labor, 2) : '$0';
-  $('sc-arb').textContent = pu.arb > 0 ? fmtDec(pu.arb, 2) : '$0';
+  $('sc-transport').textContent = pu.transport > 0 ? fmt(pu.transport) : '$0';
+  $('sc-markup').textContent = markupAmt > 0 ? fmt(markupAmt) : '$0';
+  $('sc-floorplan').textContent = pu.floorplan > 0 ? fmtDec(pu.floorplan) : '$0';
+  $('sc-storage').textContent = pu.storage > 0 ? fmtDec(pu.storage) : '$0';
+  $('sc-labor').textContent = pu.labor > 0 ? fmtDec(pu.labor) : '$0';
+  $('sc-arb').textContent = pu.arb > 0 ? fmtDec(pu.arb) : '$0';
+
   if (state.currentStep === 8) updateResults();
 }
 
-// Step 2 — just captures baseline inputs
-function calcStep2() {
-  updateSidebar();
-}
+// Step 2
+function calcStep2() { updateSidebar(); }
 
-// Step 3 — broker markup
+// Step 3 — broker margin extracted from quote, not added
 function calcStep3() {
-  $('markupPctVal').textContent = Math.round(val('markupPct')) + '%';
   const quote = val('brokerQuote');
-  const markupPct = val('markupPct') / 100;
-  const markupAmt = quote * markupPct;
-  const carrierPay = quote - markupAmt;
+  const markupAmt = quote * BROKER_MARKUP;
+  const carrierPay = quote * (1 - BROKER_MARKUP);
   const units = val('monthlyUnits');
 
   $('r3-carrier').textContent = quote > 0 ? fmtDec(carrierPay, 0) : '—';
   $('r3-margin').textContent = quote > 0 ? fmtDec(markupAmt, 0) : '—';
-  $('r3-monthly').textContent = (quote > 0 && units > 0) ? fmt(markupAmt * units) : '—';
-  $('r3-annual').textContent = (quote > 0 && units > 0) ? fmt(markupAmt * units * 12) : '—';
+  $('r3-monthly').textContent = (quote > 0 && units > 0) ? fmt(quote * units) : '—';
+  $('r3-annual').textContent = (quote > 0 && units > 0) ? fmt(quote * units * 12) : '—';
 
-  state.perUnit.transport = quote;
-  state.perUnit.markup = markupAmt;
-  state.perUnitAHX.transport = carrierPay;
+  state.perUnit.transport = quote; // full invoice (includes markup)
   updateSidebar();
 }
 
-// Step 4 — floor plan interest
+// Step 4 — floor plan interest during transit
 function calcStep4() {
   const avgPrice = val('avgPrice');
   const fpRate = val('fpRate') / 100;
   const transitDays = val('currentTransitDays');
-  const dailyFP = avgPrice > 0 && fpRate > 0 ? avgPrice * fpRate / 365 : 0;
+  const dailyFP = (avgPrice > 0 && fpRate > 0) ? avgPrice * fpRate / 365 : 0;
   const fpCurrent = dailyFP * transitDays;
-  const fpAHX = dailyFP * AHX_TRANSIT_DAYS;
-  const savings = fpCurrent - fpAHX;
+  const units = val('monthlyUnits');
 
-  $('r4-daily').textContent = dailyFP > 0 ? fmtDec(dailyFP, 2) + '/day' : '—';
-  $('r4-current').textContent = fpCurrent > 0 ? fmtDec(fpCurrent, 2) : '—';
-  $('r4-ahx').textContent = fpAHX > 0 ? fmtDec(fpAHX, 2) : '—';
-  $('r4-savings').textContent = savings > 0 ? fmtDec(savings, 2) + ' saved' : (fpCurrent > 0 ? '$0.00' : '—');
+  $('r4-daily').textContent = dailyFP > 0 ? fmtDec(dailyFP) + '/day' : '—';
+  $('r4-current').textContent = fpCurrent > 0 ? fmtDec(fpCurrent) : '—';
+  $('r4-monthly').textContent = (fpCurrent > 0 && units > 0) ? fmt(fpCurrent * units) : '—';
 
   state.perUnit.floorplan = fpCurrent;
-  state.perUnitAHX.floorplan = fpAHX;
   updateSidebar();
 }
 
@@ -935,15 +898,16 @@ function calcStep5() {
   const daysOver = Math.max(0, pickupDays - gracePeriod);
   const costPerAffected = daysOver * storageRate;
   const blended = costPerAffected * pct;
-
-  $('r5-days').textContent = daysOver > 0 ? daysOver + ' day' + (daysOver !== 1 ? 's' : '') + ' over grace' : (pickupDays > 0 ? 'Within grace period' : '—');
-  $('r5-per-vehicle').textContent = costPerAffected > 0 ? fmtDec(costPerAffected, 2) : (pickupDays > 0 ? '$0.00' : '—');
-  $('r5-blended').textContent = blended > 0 ? fmtDec(blended, 2) : (pickupDays > 0 ? '$0.00' : '—');
   const units = val('monthlyUnits');
-  $('r5-monthly').textContent = (blended > 0 && units > 0) ? fmt(blended * units) : '—';
+
+  $('r5-days').textContent = daysOver > 0
+    ? daysOver + ' day' + (daysOver !== 1 ? 's' : '') + ' over grace'
+    : (pickupDays > 0 ? 'Within grace period' : '—');
+  $('r5-per-vehicle').textContent = costPerAffected > 0 ? fmtDec(costPerAffected) : (pickupDays > 0 ? '$0.00' : '—');
+  $('r5-blended').textContent = blended > 0 ? fmtDec(blended) : (pickupDays > 0 ? '$0.00' : '—');
+  $('r5-monthly').textContent = (units > 0 && pickupDays > 0) ? fmt(blended * units) : '—';
 
   state.perUnit.storage = blended;
-  state.perUnitAHX.storage = 0;
   updateSidebar();
 }
 
@@ -951,36 +915,27 @@ function calcStep5() {
 function calcStep6() {
   const minCurrent = val('mgmtMin');
   const hourly = val('mgmtHourly');
-  const laborCurrent = (minCurrent / 60) * hourly;
-  const laborAHX = (AHX_MGMT_MIN / 60) * hourly;
-  const savings = laborCurrent - laborAHX;
+  const laborPerUnit = (minCurrent / 60) * hourly;
   const units = val('monthlyUnits');
 
-  $('r6-current').textContent = laborCurrent > 0 ? fmtDec(laborCurrent, 2) : '—';
-  $('r6-ahx').textContent = laborAHX > 0 ? fmtDec(laborAHX, 2) : '—';
-  $('r6-savings').textContent = (savings > 0 && units > 0) ? fmt(savings * units) + '/mo' : '—';
+  $('r6-current').textContent = laborPerUnit > 0 ? fmtDec(laborPerUnit) : '—';
+  $('r6-monthly').textContent = (laborPerUnit > 0 && units > 0) ? fmt(laborPerUnit * units) : '—';
 
-  state.perUnit.labor = laborCurrent;
-  state.perUnitAHX.labor = laborAHX;
+  state.perUnit.labor = laborPerUnit;
   updateSidebar();
 }
 
-// Step 7 — arbitration risk
+// Step 7 — arbitration risk (100% attributable to slow transit)
 function calcStep7() {
-  $('arbTransitPctVal').textContent = Math.round(val('arbTransitPct')) + '%';
   const vehiclePct = val('arbVehiclePct') / 100;
   const cost = val('arbCost');
-  const transitPct = val('arbTransitPct') / 100;
-  const arbCurrent = vehiclePct * cost * transitPct;
-  const arbAHX = 0;
+  const arbPerUnit = vehiclePct * cost;
   const units = val('monthlyUnits');
 
-  $('r7-current').textContent = arbCurrent > 0 ? fmtDec(arbCurrent, 2) : '—';
-  $('r7-ahx').textContent = '$0.00';
-  $('r7-savings').textContent = (arbCurrent > 0 && units > 0) ? fmt(arbCurrent * units) + '/mo' : '—';
+  $('r7-current').textContent = arbPerUnit > 0 ? fmtDec(arbPerUnit) : '—';
+  $('r7-monthly').textContent = (arbPerUnit > 0 && units > 0) ? fmt(arbPerUnit * units) : '—';
 
-  state.perUnit.arb = arbCurrent;
-  state.perUnitAHX.arb = arbAHX;
+  state.perUnit.arb = arbPerUnit;
   updateSidebar();
 }
 
@@ -992,71 +947,54 @@ function setPeriod(p) {
   updateResults();
 }
 
+function periodFactor() {
+  const units = val('monthlyUnits');
+  if (state.period === 'unit') return 1;
+  if (state.period === 'weekly') return units / WEEKS_PER_MONTH;
+  if (state.period === 'monthly') return units;
+  return units * 12; // annual
+}
+
 function updateResults() {
   const pu = state.perUnit;
-  const puA = state.perUnitAHX;
   const units = val('monthlyUnits');
+  const totalPerUnit = pu.transport + pu.floorplan + pu.storage + pu.labor + pu.arb;
+  const markupPerUnit = pu.transport * BROKER_MARKUP;
+  const f = periodFactor();
 
-  // Per-unit totals
-  const totalCurrentPU = pu.transport + pu.floorplan + pu.storage + pu.labor + pu.arb;
-  const totalAHXPU = puA.transport + puA.floorplan + puA.storage + puA.labor + puA.arb;
-  const savingsPU = totalCurrentPU - totalAHXPU;
+  // Period summary cards (always show all 4)
+  $('ps-unit').textContent = totalPerUnit > 0 ? fmt(totalPerUnit) : '—';
+  $('ps-weekly').textContent = (totalPerUnit > 0 && units > 0) ? fmt(totalPerUnit * units / WEEKS_PER_MONTH) : '—';
+  $('ps-monthly').textContent = (totalPerUnit > 0 && units > 0) ? fmt(totalPerUnit * units) : '—';
+  $('ps-annual').textContent = (totalPerUnit > 0 && units > 0) ? fmt(totalPerUnit * units * 12) : '—';
 
-  // Summary cards
-  $('rs-per-unit').textContent = savingsPU > 0 ? fmtDec(savingsPU, 0) : '—';
-  if (units > 0 && savingsPU > 0) {
-    $('rs-monthly').textContent = fmt(savingsPU * units);
-    $('rs-monthly-sub').textContent = units.toLocaleString() + ' vehicles/mo';
-    $('rs-annual').textContent = fmt(savingsPU * units * 12);
-    $('rs-annual-sub').textContent = fmt(savingsPU * units) + ' × 12 months';
-  } else {
-    $('rs-monthly').textContent = '—';
-    $('rs-monthly-sub').textContent = 'Enter monthly volume in Step 2';
-    $('rs-annual').textContent = '—';
-    $('rs-annual-sub').textContent = '';
+  // Table header
+  const labels = { unit: 'Per Vehicle', weekly: 'Weekly Total', monthly: 'Monthly Total', annual: 'Annual Total' };
+  $('rt-period-header').textContent = labels[state.period];
+
+  // Format for table cells
+  function cell(v) {
+    if (v === 0) return '$0';
+    if (state.period === 'unit') return fmtDec(v);
+    return v > 0 ? fmt(v * f) : '—';
   }
 
-  // Factor for period
-  const f = state.period === 'unit' ? 1 : state.period === 'monthly' ? units : units * 12;
-  const isMoney = state.period !== 'unit' || true;
+  $('rt-transport').textContent = pu.transport > 0 ? (state.period === 'unit' ? fmtDec(pu.transport) : fmt(pu.transport * f)) : '—';
+  $('rt-markup').textContent = markupPerUnit > 0 ? (state.period === 'unit' ? fmtDec(markupPerUnit) : fmt(markupPerUnit * f)) : '—';
+  $('rt-floorplan').textContent = pu.floorplan > 0 ? (state.period === 'unit' ? fmtDec(pu.floorplan) : fmt(pu.floorplan * f)) : '—';
+  $('rt-storage').textContent = state.period === 'unit' ? fmtDec(pu.storage) : fmt(pu.storage * f);
+  $('rt-labor').textContent = pu.labor > 0 ? (state.period === 'unit' ? fmtDec(pu.labor) : fmt(pu.labor * f)) : '—';
+  $('rt-arb').textContent = pu.arb > 0 ? (state.period === 'unit' ? fmtDec(pu.arb) : fmt(pu.arb * f)) : '—';
+  $('rt-total').textContent = totalPerUnit > 0 ? (state.period === 'unit' ? fmt(totalPerUnit) : fmt(totalPerUnit * f)) : '—';
 
-  function cell(val, isAHX) {
-    if (val === 0 && isAHX) return fmt(0);
-    return val > 0 ? (state.period === 'unit' ? fmtDec(val, 2) : fmt(val * (state.period === 'monthly' ? units : units * 12))) : '—';
-  }
-  function savCell(curr, ahx) {
-    const s = curr - ahx;
-    if (curr === 0 && ahx === 0) return { text: '—', zero: true };
-    const raw = state.period === 'unit' ? s : s * (state.period === 'monthly' ? units : units * 12);
-    return { text: raw > 0 ? (state.period === 'unit' ? fmtDec(raw, 2) : fmt(raw)) : '$0', zero: raw <= 0 };
-  }
+  // AHX savings estimate (~20% of total)
+  const ahxPerUnit = totalPerUnit * 0.20;
+  const ahxMonthly = (units > 0) ? ahxPerUnit * units : 0;
+  const ahxAnnual = ahxMonthly * 12;
 
-  const rows = [
-    ['transport', pu.transport, puA.transport],
-    ['floorplan', pu.floorplan, puA.floorplan],
-    ['storage', pu.storage, puA.storage],
-    ['labor', pu.labor, puA.labor],
-    ['arb', pu.arb, puA.arb]
-  ];
-
-  rows.forEach(([key, curr, ahx]) => {
-    $('ct-' + key + '-current').textContent = cell(curr, false);
-    $('ct-' + key + '-ahx').textContent = cell(ahx, true);
-    const s = savCell(curr, ahx);
-    const el = $('ct-' + key + '-savings');
-    el.textContent = s.text;
-    el.className = 'col-savings' + (s.zero ? ' zero' : '');
-  });
-
-  // Totals row
-  $('ct-total-current').textContent = totalCurrentPU > 0 ? (state.period === 'unit' ? fmtDec(totalCurrentPU, 0) : fmt(totalCurrentPU * (state.period === 'monthly' ? units : units * 12))) : '—';
-  $('ct-total-ahx').textContent = totalAHXPU > 0 ? (state.period === 'unit' ? fmtDec(totalAHXPU, 0) : fmt(totalAHXPU * (state.period === 'monthly' ? units : units * 12))) : '—';
-  const totalSav = state.period === 'unit' ? savingsPU : savingsPU * (state.period === 'monthly' ? units : units * 12);
-  $('ct-total-savings').textContent = totalSav > 0 ? (state.period === 'unit' ? fmtDec(totalSav, 0) : fmt(totalSav)) : '—';
-
-  // Table note
-  const periodLabel = state.period === 'unit' ? 'Per vehicle' : state.period === 'monthly' ? 'Monthly totals' : 'Annual totals';
-  $('results-table-note').textContent = periodLabel + '. AHX transport reflects carrier pay (broker markup removed). AHX charges a transparent platform fee separately. Storage assumes AHX pickup within grace period. Manager time based on AHX 10-min automated workflow. Arbitration risk assumes near-elimination with 4-day average delivery.';
+  $('ahx-per-unit').textContent = ahxPerUnit > 0 ? '~' + fmt(ahxPerUnit) : '—';
+  $('ahx-monthly').textContent = ahxMonthly > 0 ? '~' + fmt(ahxMonthly) : (ahxPerUnit > 0 ? 'Enter volume in Step 2' : '—');
+  $('ahx-annual').textContent = ahxAnnual > 0 ? '~' + fmt(ahxAnnual) : '—';
 }
 
 function resetAll() {
@@ -1070,15 +1008,9 @@ function resetAll() {
     if (el.id === 'arbCost') { el.value = '2000'; return; }
     el.value = '';
   });
-  $('markupPct').value = 25;
   $('storagePct').value = 50;
-  $('arbTransitPct').value = 30;
-  $('markupPctVal').textContent = '25%';
   $('storagePctVal').textContent = '50%';
-  $('arbTransitPctVal').textContent = '30%';
-
-  state.perUnit = { transport: 0, markup: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 };
-  state.perUnitAHX = { transport: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 };
+  state.perUnit = { transport: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 };
   state.visitedSteps = new Set([1]);
   state.period = 'unit';
   document.querySelectorAll('.period-tab').forEach((el, i) => el.classList.toggle('active', i === 0));
