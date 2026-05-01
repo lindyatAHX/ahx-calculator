@@ -557,15 +557,20 @@ input[type=number] { -moz-appearance: textfield; }
       <div class="step-content">
         <div class="step-tag">Step 5 of 7 &middot; Optional</div>
         <h2 class="step-title">Manager Time</h2>
-        <p class="step-description">Every VIN requires someone to post the load, vet carriers, confirm insurance, chase updates, cut a check, and reconcile the GL. Dealers who track this time report 40–60 minutes per vehicle — all billed to your team's capacity.</p>
+        <p id="mgmt-desc" class="step-description">Every VIN requires someone to post the load, chase updates, and reconcile the GL. With a broker, carrier vetting, insurance confirmation, and check-cutting are handled for you — but you're still paying for the time you do spend, plus the broker margin.</p>
+
+        <div class="results-period-tabs" style="margin-bottom:24px;">
+          <button class="period-tab active" id="method-broker" onclick="setTransportMethod('broker')">Using a Broker</button>
+          <button class="period-tab" id="method-loadboard" onclick="setTransportMethod('loadboard')">Load Board</button>
+        </div>
 
         <div class="form-grid">
           <div class="field">
             <label class="field-label">Time Spent Per Vehicle (minutes)
-              <span class="tooltip-icon">?<span class="tooltip-text">Average minutes your team spends managing transport for one vehicle — posting, carrier vetting, insurance checks, tracking calls, payment processing, and GL reconciliation.</span></span>
+              <span class="tooltip-icon">?<span id="mgmt-tooltip" class="tooltip-text">With a broker: your team handles posting the order, chasing status updates, and GL reconciliation. Carrier vetting, insurance checks, and carrier payment are handled by the broker. Typical range: 15–25 min.</span></span>
             </label>
-            <input type="number" id="mgmtMin" min="0" value="50" placeholder="50" oninput="calcStep5()">
-            <div class="field-helper">Industry average: 40–60 min per vehicle for broker-managed loads</div>
+            <input type="number" id="mgmtMin" min="0" value="20" placeholder="20" oninput="this.dataset.userEdited='1'; calcStep5()">
+            <div class="field-helper" id="mgmt-helper">Broker handles carrier vetting, insurance &amp; payment — typical range: 15–25 min</div>
           </div>
 
           <div class="field">
@@ -888,6 +893,26 @@ function calcStep4() {
   updateSidebar();
 }
 
+// Step 5 — transport method toggle
+function setTransportMethod(method) {
+  const isBroker = method === 'broker';
+  $('method-broker').classList.toggle('active', isBroker);
+  $('method-loadboard').classList.toggle('active', !isBroker);
+
+  if (isBroker) {
+    $('mgmt-desc').textContent = 'Every VIN requires someone to post the load, chase updates, and reconcile the GL. With a broker, carrier vetting, insurance confirmation, and check-cutting are handled for you — but you\'re still paying for the time you do spend, plus the broker margin.';
+    $('mgmt-tooltip').textContent = 'With a broker: your team handles posting the order, chasing status updates, and GL reconciliation. Carrier vetting, insurance checks, and carrier payment are handled by the broker. Typical range: 15–25 min.';
+    $('mgmt-helper').textContent = 'Broker handles carrier vetting, insurance & payment — typical range: 15–25 min';
+    if (!$('mgmtMin').dataset.userEdited) $('mgmtMin').value = 20;
+  } else {
+    $('mgmt-desc').textContent = 'When you book direct via load board, every step falls on your team: posting the load, vetting carriers, confirming insurance certificates, chasing updates, cutting checks, and reconciling the GL. Dealers running load board transport typically spend 45–60 minutes per vehicle.';
+    $('mgmt-tooltip').textContent = 'Load board: your team handles everything — posting, carrier vetting, insurance verification, tracking, payment processing, and GL reconciliation. Typical range: 45–60 min.';
+    $('mgmt-helper').textContent = 'All tasks handled in-house — typical range: 45–60 min';
+    if (!$('mgmtMin').dataset.userEdited) $('mgmtMin').value = 50;
+  }
+  calcStep5();
+}
+
 // Step 5 — manager time
 function calcStep5() {
   const minCurrent = val('mgmtMin');
@@ -979,7 +1004,7 @@ function resetAll() {
   document.querySelectorAll('input[type="number"]').forEach(el => {
     if (el.id === 'gracePeriod') { el.value = '7'; return; }
     if (el.id === 'storageRate') { el.value = '25'; return; }
-    if (el.id === 'mgmtMin') { el.value = '50'; return; }
+    if (el.id === 'mgmtMin') { el.value = '20'; delete el.dataset.userEdited; return; }
     if (el.id === 'mgmtHourly') { el.value = '60'; return; }
     if (el.id === 'arbVehiclePct') { el.value = '2'; return; }
     if (el.id === 'arbCost') { el.value = '2000'; return; }
@@ -987,6 +1012,7 @@ function resetAll() {
   });
   $('storagePct').value = 50;
   $('storagePctVal').textContent = '50%';
+  setTransportMethod('broker');
   state.perUnit = { transport: 0, floorplan: 0, storage: 0, labor: 0, arb: 0 };
   state.visitedSteps = new Set([1]);
   state.period = 'unit';
