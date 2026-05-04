@@ -244,18 +244,64 @@ input[type=number] { -moz-appearance: textfield; }
 .print-brand { display: none; }
 
 @media (max-width: 1024px) {
+  /* Layout */
+  .app { flex-direction: column; }
   .sidebar { display: none; }
-  .main { margin-left: 0; }
-  .mobile-header { display: flex !important; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+  .main { margin-left: 0; width: 100%; }
+  .mobile-header { display: flex !important; width: 100%; align-items: center; justify-content: space-between; padding: 14px 20px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
   .mobile-total { font-size: 1.2rem; font-weight: 800; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; }
   .mobile-step { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-  .step-content { padding: 24px 20px 100px; }
-  .form-grid { grid-template-columns: 1fr; }
-  .welcome-features { grid-template-columns: 1fr; }
-  .welcome-hero .step-title { font-size: 2.4rem; }
-  .period-summary { grid-template-columns: 1fr 1fr; }
-  .ahx-estimate-numbers { grid-template-columns: 1fr; }
+
+  /* Step content */
+  .step-content { padding: 24px 20px 80px; max-width: 100%; }
+  .step-title { font-size: 1.8rem; }
+  .step-description { font-size: 0.875rem; margin-bottom: 28px; }
+  .form-grid { grid-template-columns: 1fr; gap: 18px; }
+
+  /* Welcome */
+  .welcome-hero { padding: 32px 0 24px; }
+  .welcome-hero .step-title { font-size: 2.2rem; }
+  .welcome-features { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+  .feature-card { padding: 18px; }
+
+  /* Nav buttons */
+  .nav-bar { flex-wrap: wrap; gap: 10px; margin-top: 32px; padding-top: 24px; }
+  .nav-bar .btn { flex: 1; justify-content: center; min-width: 120px; }
+  .btn-large { padding: 14px 24px; font-size: 0.95rem; width: 100%; justify-content: center; }
+
+  /* Inline results */
+  .inline-results { padding: 18px 16px; margin-top: 24px; }
+
+  /* Results page */
+  .period-summary { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+  .period-card { padding: 14px 12px; }
+  .period-card-value { font-size: 1.25rem; }
+  .results-period-tabs { flex-wrap: wrap; gap: 6px; }
+  .period-tab { padding: 7px 14px; font-size: 0.75rem; flex: 1; text-align: center; min-width: 70px; }
+  .results-table th, .results-table td { padding: 10px 10px; font-size: 0.82rem; }
+  .results-table tfoot td { font-size: 0.9rem; }
+  .results-table tfoot .col-amount { font-size: 0.95rem; }
+  .table-note { font-size: 0.68rem; }
+
+  /* AHX savings */
+  .ahx-estimate { padding: 20px; }
+  .ahx-estimate-numbers { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ahx-num-value { font-size: 1.2rem; }
+  .ahx-estimate-headline { font-size: 1.1rem; }
+
+  /* CTA button */
+  .results-actions { flex-direction: column; }
+  .results-actions .btn { width: 100%; justify-content: center; }
 }
+
+@media (max-width: 480px) {
+  .period-summary { grid-template-columns: 1fr 1fr; }
+  .period-card-value { font-size: 1.1rem; }
+  .ahx-estimate-numbers { grid-template-columns: 1fr; }
+  .step-title { font-size: 1.6rem; }
+  .welcome-hero .step-title { font-size: 1.9rem; }
+}
+
 .mobile-header { display: none; }
 </style>
 </head>
@@ -336,7 +382,7 @@ input[type=number] { -moz-appearance: textfield; }
   </aside>
 
   <div class="mobile-header">
-    <span class="mobile-step" id="mobileStep">Step 1 of 8</span>
+    <span class="mobile-step" id="mobileStep">Step 1 of 7</span>
     <span class="mobile-total" id="mobileTotal">$0</span>
   </div>
 
@@ -1038,6 +1084,7 @@ function resetAll() {
 }
 
 // Init
+updateNav();
 updateSidebar();
 </script>
 
