@@ -211,12 +211,13 @@ input[type=number] { -moz-appearance: textfield; }
 @media print {
   @page { size: letter; margin: 0; }
 
+  /* Force background colors to print */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
   /* Hide the whole app, show only the print report */
   .app, .mobile-header { display: none !important; }
   body { background: #fff !important; margin: 0; padding: 0; }
-  #print-report { display: block !important; font-family: 'Inter', sans-serif; color: #1a1a1a; }
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
+  #print-report { display: block !important; font-family: 'Inter', sans-serif; color: #1a1a1a; width: 100%; }
 
   /* Header band */
   .pr-header {
@@ -229,7 +230,7 @@ input[type=number] { -moz-appearance: textfield; }
     padding: 28px 40px;
     color: #fff;
   }
-  .pr-logo { height: 32px; display: block; }
+  .pr-logo { height: 36px; max-width: 180px; display: block; filter: brightness(0) invert(1); }
   .pr-header-right { text-align: right; }
   .pr-report-title {
     font-family: 'Barlow Condensed', sans-serif;
@@ -1376,6 +1377,10 @@ function preparePrint() {
   const wf = 1 / WEEKS_PER_MONTH;   // monthly → weekly
   const af = 12;                      // monthly → annual
 
+  // Copy already-loaded sidebar logo so it's guaranteed to be in the browser cache
+  const sidebarLogo = document.querySelector('.sidebar img');
+  if (sidebarLogo) $('pr-logo').src = sidebarLogo.src;
+
   // Date
   const now = new Date();
   $('pr-date').textContent = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -1433,7 +1438,7 @@ updateVolumeHelpers();
 <div id="print-report">
 
   <div class="pr-header">
-    <img class="pr-logo" src="https://cdn.prod.website-files.com/6744da7fa3f57f6f7b9b7af4/6744da7fa3f57f6f7b9b7b2e_AHX-logo-white.svg" alt="Auto Hauler Exchange">
+    <img class="pr-logo" id="pr-logo" src="" alt="Auto Hauler Exchange">
     <div class="pr-header-right">
       <div class="pr-report-title">Total Cost of Transport</div>
       <div class="pr-report-sub">Ancillary Cost Analysis &nbsp;·&nbsp; <span id="pr-date"></span></div>
