@@ -541,14 +541,24 @@ input[type=number] { -moz-appearance: textfield; }
             <div class="section-divider-label">Dwell Time</div>
           </div>
 
-          <div class="field">
+          <!-- Port / Rail toggle -->
+          <div class="full-width" style="margin-bottom:4px;">
+            <div class="field-label" style="margin-bottom:10px;">Moving from</div>
+            <div class="results-period-tabs" style="margin-bottom:0;">
+              <button class="period-tab active" id="dwell-mode-port" onclick="setDwellMode('port')">Port</button>
+              <button class="period-tab" id="dwell-mode-rail" onclick="setDwellMode('rail')">Rail</button>
+            </div>
+          </div>
+
+          <!-- Port fields -->
+          <div class="field" id="portDwellCurrentField">
             <label class="field-label">Current Port Dwell Time (days)
               <span class="tooltip-icon">?<span class="tooltip-text">Average number of days vehicles sit at port before pickup.</span></span>
             </label>
             <input type="number" id="portDwellCurrent" min="0" step="0.1" placeholder="e.g. 7" oninput="calcStep4()">
           </div>
 
-          <div class="field">
+          <div class="field" id="portDwellTargetField">
             <label class="field-label">Target Port Dwell Time (days)
               <span class="tooltip-icon">?<span class="tooltip-text">Industry target or desired dwell time. AHX network average: 4 days.</span></span>
             </label>
@@ -556,14 +566,15 @@ input[type=number] { -moz-appearance: textfield; }
             <div class="field-helper">AHX average: 4-day delivery</div>
           </div>
 
-          <div class="field">
+          <!-- Rail fields -->
+          <div class="field" id="railDwellCurrentField" style="display:none;">
             <label class="field-label">Current Rail Dwell Time (days)
               <span class="tooltip-icon">?<span class="tooltip-text">Average number of days vehicles sit at railhead before pickup.</span></span>
             </label>
             <input type="number" id="railDwellCurrent" min="0" step="0.1" placeholder="e.g. 5" oninput="calcStep4()">
           </div>
 
-          <div class="field">
+          <div class="field" id="railDwellTargetField" style="display:none;">
             <label class="field-label">Target Rail Dwell Time (days)
               <span class="tooltip-icon">?<span class="tooltip-text">Desired railhead dwell time.</span></span>
             </label>
@@ -1072,17 +1083,27 @@ function calcStep3() {
 }
 
 // Step 4
+function setDwellMode(mode) {
+  const isPort = mode === 'port';
+  $('dwell-mode-port').classList.toggle('active', isPort);
+  $('dwell-mode-rail').classList.toggle('active', !isPort);
+  $('portDwellCurrentField').style.display = isPort ? '' : 'none';
+  $('portDwellTargetField').style.display  = isPort ? '' : 'none';
+  $('railDwellCurrentField').style.display = isPort ? 'none' : '';
+  $('railDwellTargetField').style.display  = isPort ? 'none' : '';
+  calcStep4();
+}
+
 function calcStep4() {
   const vol = val('monthlyVolume');
+  const isPort = $('dwell-mode-port').classList.contains('active');
 
-  // Dwell
-  const portExcess = Math.max(0, val('portDwellCurrent') - val('portDwellTarget'));
-  const railExcess = Math.max(0, val('railDwellCurrent') - val('railDwellTarget'));
-  const avgExcess = portExcess > 0 || railExcess > 0
-    ? (portExcess + railExcess) / ([portExcess, railExcess].filter(x => x > 0).length)
-    : 0;
+  // Dwell — only use fields for the active mode
+  const excess = isPort
+    ? Math.max(0, val('portDwellCurrent') - val('portDwellTarget'))
+    : Math.max(0, val('railDwellCurrent') - val('railDwellTarget'));
   const dwellUnits = Math.min(val('dwellUnits'), vol || Infinity);
-  const dwellMonthly = dwellUnits * avgExcess * val('dwellDailyCost');
+  const dwellMonthly = dwellUnits * excess * val('dwellDailyCost');
 
   // Handling
   const handlingMonthly = Math.min(val('dwellUnits'), vol || Infinity) * val('extraTouches') * val('handlingFee');
@@ -1199,6 +1220,7 @@ function resetAll() {
   $('mgmtPctSlider').value = 50;
   syncPct();
   syncMgmtPct();
+  setDwellMode('port');
   Object.keys(state.monthlies).forEach(k => state.monthlies[k] = 0);
   state.visitedSteps = new Set([1]);
   state.period = 'weekly';
