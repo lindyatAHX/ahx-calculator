@@ -433,12 +433,12 @@ input[type=number] { -moz-appearance: textfield; }
               <div class="pct-group-title">Volume Distribution</div>
               <div class="pct-row">
                 <span class="pct-label">Contract carrier</span>
-                <input type="range" class="pct-slider" id="pctContract" min="0" max="100" value="70" oninput="syncPct()">
+                <input type="range" class="pct-slider" id="pctContract" min="0" max="100" value="70" oninput="syncPct('contract')">
                 <span class="pct-value" id="pctContractVal">70%</span>
               </div>
               <div class="pct-row">
                 <span class="pct-label">Ad hoc / spot</span>
-                <input type="range" class="pct-slider" id="pctSpot" min="0" max="100" value="30" oninput="syncPct()">
+                <input type="range" class="pct-slider" id="pctSpot" min="0" max="100" value="30" oninput="syncPct('spot')">
                 <span class="pct-value" id="pctSpotVal">30%</span>
               </div>
               <div class="pct-total-row">
@@ -1033,14 +1033,18 @@ function syncVolume() {
   updateVolumeHelpers();
 }
 
-function syncPct() {
+function syncPct(which) {
+  if (which === 'contract') {
+    $('pctSpot').value = 100 - val('pctContract');
+  } else if (which === 'spot') {
+    $('pctContract').value = 100 - val('pctSpot');
+  }
   const c = val('pctContract'), s = val('pctSpot');
   $('pctContractVal').textContent = Math.round(c) + '%';
   $('pctSpotVal').textContent = Math.round(s) + '%';
-  const total = Math.round(c + s);
-  $('pctTotal').textContent = total + '%';
-  $('pctTotal').className = 'pct-total-value ' + (total === 100 ? 'valid' : 'invalid');
-  $('pctValidation').textContent = total !== 100 ? 'Percentages must sum to 100%' : '';
+  $('pctTotal').textContent = '100%';
+  $('pctTotal').className = 'pct-total-value valid';
+  $('pctValidation').textContent = '';
 }
 
 function updateVolumeHelpers() {
