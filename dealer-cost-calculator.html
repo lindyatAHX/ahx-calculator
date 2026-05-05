@@ -224,22 +224,162 @@ input[type=number] { -moz-appearance: textfield; }
 
 .results-actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 
+/* ── Print report (screen: hidden) ───────────────────────── */
+#print-report { display: none; }
+
 @media print {
-  .sidebar, .nav-bar, .results-actions, .results-period-tabs { display: none !important; }
-  .main { margin-left: 0 !important; }
-  .step-content { padding: 20px !important; max-width: 100% !important; }
-  body { background: white !important; color: #1a1a1a !important; }
-  .step-title { color: #04072f !important; }
-  .step-tag { color: #e89700 !important; }
-  .period-card { background: #f5f5f5 !important; border-color: #ddd !important; }
-  .period-card-value { color: #e89700 !important; }
-  .results-table th, .results-table td { color: #1a1a1a !important; }
-  .results-table .col-amount { color: #04072f !important; }
-  .results-table tfoot .col-amount { color: #e89700 !important; }
-  .ahx-estimate { background: #e8f5e9 !important; border-color: #18ad3a !important; }
-  .ahx-num-value { color: #18ad3a !important; }
-  .callout { background: #f5f5f5 !important; }
-  .print-brand { display: block !important; text-align: center; margin-bottom: 24px; font-size: 0.8rem; color: #999; }
+  @page { size: letter; margin: 0; }
+
+  /* Force background colors to print */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  /* Hide the whole app, show only the print report */
+  .app, .mobile-header { display: none !important; }
+  body { background: #fff !important; margin: 0; padding: 0; }
+  #print-report { display: block !important; font-family: 'Inter', sans-serif; color: #1a1a1a; width: 100%; }
+
+  /* Header band */
+  .pr-header {
+    background: #04072f !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 40px;
+    color: #fff;
+  }
+  .pr-logo { height: 36px; max-width: 180px; display: block; filter: brightness(0) invert(1); }
+  .pr-header-right { text-align: right; }
+  .pr-report-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+  .pr-report-sub { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+
+  /* Accent stripe */
+  .pr-stripe { height: 4px; background: #e89700 !important; }
+
+  /* Body */
+  .pr-body { padding: 32px 40px 0; }
+
+  /* Summary cards: 4 periods */
+  .pr-summary { display: flex; gap: 14px; margin-bottom: 32px; }
+  .pr-sum-card {
+    flex: 1;
+    border: 1.5px solid #e4e7f0;
+    border-radius: 10px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .pr-sum-card--highlight {
+    background: #04072f !important;
+    border-color: #04072f !important;
+    color: #fff;
+  }
+  .pr-sum-label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8a96b8;
+    margin-bottom: 6px;
+  }
+  .pr-sum-card--highlight .pr-sum-label { color: rgba(255,255,255,0.55); }
+  .pr-sum-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #04072f;
+    letter-spacing: -0.01em;
+  }
+  .pr-sum-card--highlight .pr-sum-value { color: #e89700; }
+
+  /* Section */
+  .pr-section { margin-bottom: 26px; page-break-inside: avoid; }
+  .pr-section-title {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #e89700;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e4e7f0;
+  }
+
+  /* Breakdown table — 4 period columns */
+  .pr-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .pr-table th {
+    font-size: 8.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a96b8;
+    padding: 0 10px 8px;
+    text-align: right;
+    border-bottom: 1.5px solid #e4e7f0;
+  }
+  .pr-table th:first-child { text-align: left; }
+  .pr-table td { padding: 9px 10px; border-bottom: 1px solid #f0f2f8; color: #2d3350; font-weight: 500; }
+  .pr-table td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: #04072f; }
+  .pr-table .pr-sub-row td { font-size: 10px; color: #8a96b8 !important; font-weight: 400 !important; font-style: italic; background: #fafbff !important; }
+  .pr-table tfoot td {
+    padding-top: 12px;
+    border-top: 2px solid #e89700 !important;
+    border-bottom: none;
+    font-weight: 800;
+    font-size: 12px;
+    color: #04072f;
+  }
+  .pr-table tfoot td:not(:first-child) { color: #e89700; font-size: 13px; }
+
+  /* AHX savings block */
+  .pr-savings {
+    background: #f0faf2 !important;
+    border: 1.5px solid #18ad3a !important;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+  .pr-savings-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #18ad3a; margin-bottom: 4px; }
+  .pr-savings-headline { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; color: #04072f; text-transform: uppercase; margin-bottom: 6px; }
+  .pr-savings-text { font-size: 10px; color: #5a6282; line-height: 1.5; margin-bottom: 12px; }
+  .pr-savings-nums { display: flex; gap: 16px; }
+  .pr-savings-num { flex: 1; text-align: center; }
+  .pr-savings-num-value { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; color: #18ad3a; }
+  .pr-savings-num-label { font-size: 9px; color: #8a96b8; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .pr-savings-disclaimer { font-size: 9px; color: #aab0c4; margin-top: 10px; line-height: 1.5; }
+
+  /* Callout */
+  .pr-callout {
+    background: #f7f8fc !important;
+    border-left: 4px solid #e89700 !important;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+  .pr-callout-title { font-size: 11px; font-weight: 700; color: #04072f; margin-bottom: 4px; }
+  .pr-callout-text { font-size: 10px; color: #5a6282; line-height: 1.6; margin-bottom: 5px; }
+  .pr-callout-url { font-size: 10px; font-weight: 600; color: #e89700; }
+
+  /* Footer */
+  .pr-footer {
+    background: #04072f !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 24px;
+  }
+  .pr-footer-brand { color: rgba(255,255,255,0.7); font-weight: 600; letter-spacing: 0.04em; }
 }
 .print-brand { display: none; }
 
@@ -826,7 +966,7 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="results-actions">
-          <button class="btn btn-primary" onclick="window.print()">Print / Save as PDF</button>
+          <button class="btn btn-primary" onclick="preparePrint()">Print / Save as PDF</button>
           <button class="btn btn-secondary" onclick="resetAll()">Start Over</button>
         </div>
 
@@ -1083,10 +1223,197 @@ function resetAll() {
   goToStep(1);
 }
 
+// Print report
+function preparePrint() {
+  const pu = state.perUnit;
+  const units = val('monthlyUnits');
+  const totalPerUnit = pu.transport + pu.floorplan + pu.storage + pu.labor + pu.arb;
+  const markupPerUnit = pu.transport * BROKER_MARKUP;
+  const wf = units / WEEKS_PER_MONTH;
+  const mf = units;
+  const af = units * 12;
+
+  // Copy already-loaded sidebar logo (guaranteed in cache)
+  const sidebarLogo = document.querySelector('.sidebar img');
+  if (sidebarLogo) $('pr-logo').src = sidebarLogo.src;
+
+  // Date
+  const now = new Date();
+  $('pr-date').textContent = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+  // Summary cards
+  $('pr-sum-unit').textContent    = totalPerUnit > 0 ? fmt(totalPerUnit) : '—';
+  $('pr-sum-weekly').textContent  = (totalPerUnit > 0 && units > 0) ? fmt(totalPerUnit * wf) : '—';
+  $('pr-sum-monthly').textContent = (totalPerUnit > 0 && units > 0) ? fmt(totalPerUnit * mf) : '—';
+  $('pr-sum-annual').textContent  = (totalPerUnit > 0 && units > 0) ? fmt(totalPerUnit * af) : '—';
+
+  // Breakdown table helper
+  function row(v) {
+    if (!v || v === 0) return ['—','—','—','—'];
+    return [
+      fmtDec(v),
+      units > 0 ? fmt(v * wf) : '—',
+      units > 0 ? fmt(v * mf) : '—',
+      units > 0 ? fmt(v * af) : '—',
+    ];
+  }
+  function setRow(prefix, v) {
+    const [u,w,m,a] = row(v);
+    $(prefix+'-u').textContent = u;
+    $(prefix+'-w').textContent = w;
+    $(prefix+'-m').textContent = m;
+    $(prefix+'-a').textContent = a;
+  }
+  setRow('pr-transport', pu.transport);
+  setRow('pr-markup',    markupPerUnit);
+  setRow('pr-floorplan', pu.floorplan);
+  setRow('pr-storage',   pu.storage);
+  setRow('pr-labor',     pu.labor);
+  setRow('pr-arb',       pu.arb);
+  setRow('pr-total',     totalPerUnit);
+
+  // AHX savings (~20%)
+  const ahxUnit    = totalPerUnit * 0.20;
+  const ahxMonthly = ahxUnit * (units || 0);
+  const ahxAnnual  = ahxMonthly * 12;
+  $('pr-ahx-unit').textContent    = ahxUnit > 0 ? '~' + fmt(ahxUnit) : '—';
+  $('pr-ahx-monthly').textContent = ahxMonthly > 0 ? '~' + fmt(ahxMonthly) : '—';
+  $('pr-ahx-annual').textContent  = ahxAnnual > 0 ? '~' + fmt(ahxAnnual) : '—';
+
+  window.print();
+}
+
 // Init
 updateNav();
 updateSidebar();
 </script>
+
+<!-- ── Branded print report (hidden on screen, shown on print) ── -->
+<div id="print-report">
+
+  <div class="pr-header">
+    <img class="pr-logo" id="pr-logo" src="" alt="Auto Hauler Exchange">
+    <div class="pr-header-right">
+      <div class="pr-report-title">Dealer True Landed Cost</div>
+      <div class="pr-report-sub">Transport Cost Analysis &nbsp;·&nbsp; <span id="pr-date"></span></div>
+    </div>
+  </div>
+  <div class="pr-stripe"></div>
+
+  <div class="pr-body">
+
+    <!-- Summary: 4 period totals -->
+    <div class="pr-summary">
+      <div class="pr-sum-card pr-sum-card--highlight">
+        <div class="pr-sum-label">Per Vehicle</div>
+        <div class="pr-sum-value" id="pr-sum-unit">—</div>
+      </div>
+      <div class="pr-sum-card">
+        <div class="pr-sum-label">Weekly</div>
+        <div class="pr-sum-value" id="pr-sum-weekly">—</div>
+      </div>
+      <div class="pr-sum-card">
+        <div class="pr-sum-label">Monthly</div>
+        <div class="pr-sum-value" id="pr-sum-monthly">—</div>
+      </div>
+      <div class="pr-sum-card">
+        <div class="pr-sum-label">Annual</div>
+        <div class="pr-sum-value" id="pr-sum-annual">—</div>
+      </div>
+    </div>
+
+    <!-- Cost breakdown: all 4 periods -->
+    <div class="pr-section">
+      <div class="pr-section-title">Cost Breakdown</div>
+      <table class="pr-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Per Vehicle</th>
+            <th>Weekly</th>
+            <th>Monthly</th>
+            <th>Annual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Transport Invoice</td>
+            <td id="pr-transport-u">—</td><td id="pr-transport-w">—</td>
+            <td id="pr-transport-m">—</td><td id="pr-transport-a">—</td>
+          </tr>
+          <tr class="pr-sub-row">
+            <td>&nbsp;&nbsp;~25% broker margin (within invoice)</td>
+            <td id="pr-markup-u">—</td><td id="pr-markup-w">—</td>
+            <td id="pr-markup-m">—</td><td id="pr-markup-a">—</td>
+          </tr>
+          <tr>
+            <td>Floor Plan Interest (in transit)</td>
+            <td id="pr-floorplan-u">—</td><td id="pr-floorplan-w">—</td>
+            <td id="pr-floorplan-m">—</td><td id="pr-floorplan-a">—</td>
+          </tr>
+          <tr>
+            <td>Auction Storage Fees</td>
+            <td id="pr-storage-u">—</td><td id="pr-storage-w">—</td>
+            <td id="pr-storage-m">—</td><td id="pr-storage-a">—</td>
+          </tr>
+          <tr>
+            <td>Manager Time</td>
+            <td id="pr-labor-u">—</td><td id="pr-labor-w">—</td>
+            <td id="pr-labor-m">—</td><td id="pr-labor-a">—</td>
+          </tr>
+          <tr>
+            <td>Arbitration Risk</td>
+            <td id="pr-arb-u">—</td><td id="pr-arb-w">—</td>
+            <td id="pr-arb-m">—</td><td id="pr-arb-a">—</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>True Landed Cost</td>
+            <td id="pr-total-u">—</td><td id="pr-total-w">—</td>
+            <td id="pr-total-m">—</td><td id="pr-total-a">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- AHX savings estimate -->
+    <div class="pr-savings">
+      <div class="pr-savings-label">Estimated Savings with AHX</div>
+      <div class="pr-savings-headline">~20% Less Per Vehicle</div>
+      <div class="pr-savings-text">Dealers using AHX typically reduce their total true landed cost by around 20% — by eliminating broker markup, cutting transit to an average of 4 days, and replacing manual logistics work with an automated platform.</div>
+      <div class="pr-savings-nums">
+        <div class="pr-savings-num">
+          <div class="pr-savings-num-value" id="pr-ahx-unit">—</div>
+          <div class="pr-savings-num-label">per vehicle</div>
+        </div>
+        <div class="pr-savings-num">
+          <div class="pr-savings-num-value" id="pr-ahx-monthly">—</div>
+          <div class="pr-savings-num-label">per month</div>
+        </div>
+        <div class="pr-savings-num">
+          <div class="pr-savings-num-value" id="pr-ahx-annual">—</div>
+          <div class="pr-savings-num-label">per year</div>
+        </div>
+      </div>
+      <div class="pr-savings-disclaimer">Estimated savings based on industry benchmarks. Actual results vary by lane, volume, auction source, and current transport setup.</div>
+    </div>
+
+    <!-- Callout -->
+    <div class="pr-callout">
+      <div class="pr-callout-title">The cost pattern</div>
+      <div class="pr-callout-text">Your transport invoice is only the starting line. Broker margin, daily interest, storage fees, admin hours, and arbitration risk compound on every vehicle — and most of it never appears in a single view. The gap between your quoted price and your true landed cost is consistent, predictable, and worth understanding.</div>
+      <div class="pr-callout-url">marketplace.autohaulerexchange.com/sign-up/customer</div>
+    </div>
+
+  </div><!-- /.pr-body -->
+
+  <div class="pr-footer">
+    <span class="pr-footer-brand">Auto Hauler Exchange</span>
+    <span>autohaulerexchange.com &nbsp;·&nbsp; Dealer True Landed Cost Calculator</span>
+  </div>
+
+</div><!-- /#print-report -->
 
 </body>
 </html>
