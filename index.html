@@ -320,14 +320,10 @@ input[type=number] { -moz-appearance: textfield; }
       </div>
       <div class="step-indicator" data-step="6" onclick="goToStep(6)">
         <div class="step-dot"><span class="step-number">6</span></div>
-        <span class="step-label">Damage Costs</span>
+        <span class="step-label">Management & Claims</span>
       </div>
       <div class="step-indicator" data-step="7" onclick="goToStep(7)">
         <div class="step-dot"><span class="step-number">7</span></div>
-        <span class="step-label">Management Costs</span>
-      </div>
-      <div class="step-indicator" data-step="8" onclick="goToStep(8)">
-        <div class="step-dot"><span class="step-number">8</span></div>
         <span class="step-label">Results</span>
       </div>
     </nav>
@@ -346,18 +342,14 @@ input[type=number] { -moz-appearance: textfield; }
         <span class="sidebar-cost-value" id="sc-reimburse">$0</span>
       </div>
       <div class="sidebar-cost-row">
-        <span class="sidebar-cost-label">Damage</span>
-        <span class="sidebar-cost-value" id="sc-damage">$0</span>
-      </div>
-      <div class="sidebar-cost-row">
-        <span class="sidebar-cost-label">Management</span>
+        <span class="sidebar-cost-label">Management & Claims</span>
         <span class="sidebar-cost-value" id="sc-mgmt">$0</span>
       </div>
     </div>
   </aside>
 
   <div class="mobile-header">
-    <span class="mobile-step" id="mobileStep">Step 1 of 8</span>
+    <span class="mobile-step" id="mobileStep">Step 1 of 7</span>
     <span class="mobile-total" id="mobileTotal">$0</span>
   </div>
 
@@ -396,7 +388,7 @@ input[type=number] { -moz-appearance: textfield; }
     <!-- STEP 2: Transport Volume & Rate Mix -->
     <div class="step-view" id="step-2">
       <div class="step-content">
-        <div class="step-tag">Step 2 of 8</div>
+        <div class="step-tag">Step 2 of 7</div>
         <h2 class="step-title">Transport Volume & Rate Mix</h2>
         <p class="step-description">Enter your monthly volume and the rates you pay across your carrier mix. These inputs carry through to the rest of the calculator.</p>
 
@@ -460,7 +452,7 @@ input[type=number] { -moz-appearance: textfield; }
     <!-- STEP 3: Bay Allocation & Overage Costs -->
     <div class="step-view" id="step-3">
       <div class="step-content">
-        <div class="step-tag">Step 3 of 8</div>
+        <div class="step-tag">Step 3 of 7</div>
         <h2 class="step-title">Bay Allocation & Overage Costs</h2>
         <p class="step-description">Every OEM has a contracted number of bays at port or railhead. Units that exceed your allocation trigger overage fees — often charged per bay, per day.</p>
 
@@ -531,7 +523,7 @@ input[type=number] { -moz-appearance: textfield; }
     <!-- STEP 4: Dwell Time + Handling + Overflow -->
     <div class="step-view" id="step-4">
       <div class="step-content">
-        <div class="step-tag">Step 4 of 8</div>
+        <div class="step-tag">Step 4 of 7</div>
         <h2 class="step-title">Dwell, Handling & Overflow</h2>
         <p class="step-description">Every day a vehicle sits unmoving at port or rail is a day you're paying for it. When those delays overflow into satellite lots — or require extra touches to finally move the vehicle — the costs compound.</p>
 
@@ -698,7 +690,7 @@ input[type=number] { -moz-appearance: textfield; }
     <!-- STEP 5: Dealer Reimbursement -->
     <div class="step-view" id="step-5">
       <div class="step-content">
-        <div class="step-tag">Step 5 of 8 &middot; Optional</div>
+        <div class="step-tag">Step 5 of 7 &middot; Optional</div>
         <h2 class="step-title">Dealer Reimbursement Costs</h2>
         <p class="step-description">When vehicles are delivered late, many OEMs pay a reimbursement to their dealers — a per-car cost allocated each month based on delayed units. Enter your actual penalty rate to see your monthly exposure.</p>
 
@@ -738,78 +730,29 @@ input[type=number] { -moz-appearance: textfield; }
         <div class="nav-bar">
           <button class="btn btn-secondary" onclick="goToStep(4)">&larr; Back</button>
           <button class="btn btn-skip" onclick="goToStep(6)">Skip this step</button>
-          <button class="btn btn-primary" onclick="goToStep(6)">Next: Damage Costs &rarr;</button>
+          <button class="btn btn-primary" onclick="goToStep(6)">Next: Management & Claims &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 6: Damage -->
+    <!-- STEP 6: Management & Claims -->
     <div class="step-view" id="step-6">
       <div class="step-content">
-        <div class="step-tag">Step 6 of 8</div>
-        <h2 class="step-title">Damage Costs</h2>
-        <p class="step-description">Every additional handling event increases the risk of damage. Enter your damage rate and average repair cost to see your monthly exposure.</p>
+        <div class="step-tag">Step 6 of 7 &middot; Optional</div>
+        <h2 class="step-title">Management & Claims Overhead</h2>
+        <p class="step-description">Carriers cover repair costs — but your team still pays in time. Every damage claim means hours spent opening, tracking, and closing it. This step captures both your baseline carrier management overhead and the administrative drag that scales with your damage rate.</p>
 
         <div class="form-grid">
-          <div class="field">
-            <label class="field-label">Estimated Damage Rate
-              <span class="tooltip-icon">?<span class="tooltip-text">Percentage of units that incur damage during the transport process.</span></span>
-            </label>
-            <div class="input-wrap">
-              <input type="number" id="damageRate" class="has-suffix" min="0" max="100" step="0.01" placeholder="e.g. 2.5" oninput="calcStep6()">
-              <span class="input-suffix">%</span>
-            </div>
+          <!-- Logistics Management -->
+          <div class="section-divider full-width">
+            <div class="section-divider-label">Logistics Management</div>
           </div>
 
-          <div class="field">
-            <label class="field-label">Avg Cost per Damage Incident
-              <span class="tooltip-icon">?<span class="tooltip-text">Average repair or claim cost per vehicle damage incident.</span></span>
-            </label>
-            <div class="input-wrap">
-              <span class="input-prefix">$</span>
-              <input type="number" id="damageCost" class="has-prefix" min="0" step="1" placeholder="0" oninput="calcStep6()">
-            </div>
-          </div>
-
-          <div class="field full-width">
-            <label class="field-label">Monthly Unit Volume</label>
-            <input type="number" id="step6Volume" disabled style="opacity:0.6">
-            <div class="field-helper">Auto-carried from Step 2</div>
-          </div>
-        </div>
-
-        <div class="inline-results">
-          <div class="inline-results-title">Calculated Costs</div>
-          <div class="result-row">
-            <span class="result-label">Monthly damage exposure</span>
-            <span class="result-value" id="r6-monthly">—</span>
-          </div>
-          <div class="result-row highlight">
-            <span class="result-label">Annual total</span>
-            <span class="result-value" id="r6-annual">—</span>
-          </div>
-        </div>
-
-        <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(5)">&larr; Back</button>
-          <button class="btn btn-primary" onclick="goToStep(7)">Next: Management Costs &rarr;</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP 7: Internal Management Costs -->
-    <div class="step-view" id="step-7">
-      <div class="step-content">
-        <div class="step-tag">Step 7 of 8 &middot; Optional</div>
-        <h2 class="step-title">Internal Management Costs</h2>
-        <p class="step-description">Managing a fragmented carrier network takes real time and real people. This step helps quantify the internal overhead — not to suggest reducing headcount, but to understand how much of your team's capacity is consumed by carrier management vs. strategic work.</p>
-
-        <div class="form-grid">
           <div class="field">
             <label class="field-label">FTEs in Carrier/Logistics Management
               <span class="tooltip-icon">?<span class="tooltip-text">Number of full-time employees dedicated to managing carriers, logistics coordination, and exception handling.</span></span>
             </label>
-            <input type="number" id="mgmtFTEs" min="0" step="0.5" placeholder="e.g. 3" oninput="calcStep7()">
+            <input type="number" id="mgmtFTEs" min="0" step="0.5" placeholder="e.g. 3" oninput="calcStep6()">
           </div>
 
           <div class="field">
@@ -818,7 +761,7 @@ input[type=number] { -moz-appearance: textfield; }
             </label>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input type="number" id="fteCost" class="has-prefix" min="0" step="1000" placeholder="e.g. 95000" oninput="calcStep7()">
+              <input type="number" id="fteCost" class="has-prefix" min="0" step="1000" placeholder="e.g. 95000" oninput="calcStep6()">
             </div>
           </div>
 
@@ -831,30 +774,71 @@ input[type=number] { -moz-appearance: textfield; }
               <span style="font-size:0.95rem; font-weight:700; color:var(--text); width:50px; text-align:right;" id="mgmtPctVal">50%</span>
             </div>
           </div>
+
+          <!-- Damage Claim Management -->
+          <div class="section-divider full-width">
+            <div class="section-divider-label">Damage Claim Management</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Estimated Damage Rate
+              <span class="tooltip-icon">?<span class="tooltip-text">Percentage of transported units that incur damage and require a claim to be filed.</span></span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="damageRate" class="has-suffix" min="0" max="100" step="0.01" placeholder="e.g. 2.5" oninput="calcStep6()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Avg Hours to Manage One Claim
+              <span class="tooltip-icon">?<span class="tooltip-text">Total staff hours to open, track, follow up on, and close a single damage claim.</span></span>
+            </label>
+            <input type="number" id="claimHours" min="0" step="0.25" placeholder="e.g. 3" oninput="calcStep6()">
+            <div class="field-helper">Filing, follow-up, dispute resolution, and close-out</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Blended Hourly Rate (claims staff)
+              <span class="tooltip-icon">?<span class="tooltip-text">Fully-loaded hourly cost of the staff who manage damage claims.</span></span>
+            </label>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="claimHourlyRate" class="has-prefix" min="0" step="1" placeholder="e.g. 45" oninput="calcStep6()">
+            </div>
+          </div>
         </div>
 
         <div class="inline-results">
           <div class="inline-results-title">Calculated Costs</div>
           <div class="result-row">
-            <span class="result-label">Annual management overhead (transport)</span>
-            <span class="result-value" id="r7-annual">—</span>
+            <span class="result-label">Monthly logistics management cost</span>
+            <span class="result-value" id="r6-mgmt-monthly">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Monthly claim management cost</span>
+            <span class="result-value" id="r6-claims-monthly">—</span>
           </div>
           <div class="result-row highlight">
-            <span class="result-label">Monthly equivalent</span>
-            <span class="result-value" id="r7-monthly">—</span>
+            <span class="result-label">Combined monthly total</span>
+            <span class="result-value" id="r6-monthly">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Annual total</span>
+            <span class="result-value" id="r6-annual">—</span>
           </div>
         </div>
 
         <div class="nav-bar">
-          <button class="btn btn-secondary" onclick="goToStep(6)">&larr; Back</button>
-          <button class="btn btn-skip" onclick="goToStep(8)">Skip this step</button>
-          <button class="btn btn-primary" onclick="goToStep(8)">View Results &rarr;</button>
+          <button class="btn btn-secondary" onclick="goToStep(5)">&larr; Back</button>
+          <button class="btn btn-skip" onclick="goToStep(7)">Skip this step</button>
+          <button class="btn btn-primary" onclick="goToStep(7)">View Results &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 8: Results -->
-    <div class="step-view" id="step-8">
+    <!-- STEP 7: Results -->
+    <div class="step-view" id="step-7">
       <div class="step-content">
         <div class="print-brand">Auto Hauler Exchange — Total Cost of Transport Calculator</div>
         <div class="step-tag">Results</div>
@@ -888,11 +872,7 @@ input[type=number] { -moz-appearance: textfield; }
               <td class="cat-value" id="rt-reimburse">$0</td>
             </tr>
             <tr>
-              <td class="cat-label">Damage</td>
-              <td class="cat-value" id="rt-damage">$0</td>
-            </tr>
-            <tr>
-              <td class="cat-label">Management Overhead</td>
+              <td class="cat-label">Management & Claims Overhead</td>
               <td class="cat-value" id="rt-mgmt">$0</td>
             </tr>
           </tbody>
@@ -978,7 +958,7 @@ const WEEKS_PER_MONTH = 4.333;
 const state = {
   currentStep: 1,
   visitedSteps: new Set([1]),
-  monthlies: { bays: 0, dwell: 0, reimburse: 0, damage: 0, mgmt: 0 },
+  monthlies: { bays: 0, dwell: 0, reimburse: 0, mgmt: 0 },
   period: 'weekly'
 };
 
@@ -1004,14 +984,13 @@ function periodUnits() {
 }
 
 function goToStep(n) {
-  if (n < 1 || n > 8) return;
+  if (n < 1 || n > 7) return;
   document.querySelectorAll('.step-view').forEach(el => el.classList.remove('active'));
   $('step-' + n).classList.add('active');
   state.visitedSteps.add(n);
   state.currentStep = n;
   updateNav();
-  if (n === 6) $('step6Volume').value = val('monthlyVolume') || '';
-  if (n === 8) updateResults();
+  if (n === 7) updateResults();
   window.scrollTo(0, 0);
 }
 
@@ -1022,26 +1001,23 @@ function updateNav() {
     if (s === state.currentStep) el.classList.add('active');
     else if (state.visitedSteps.has(s) && s < state.currentStep) el.classList.add('completed');
   });
-  $('mobileStep').textContent = 'Step ' + state.currentStep + ' of 8';
+  $('mobileStep').textContent = 'Step ' + state.currentStep + ' of 7';
 }
 
 function updateTotals() {
   const m = state.monthlies;
-  const totalMonthly = m.bays + m.dwell + m.reimburse + m.damage + m.mgmt;
+  const totalMonthly = m.bays + m.dwell + m.reimburse + m.mgmt;
   $('sidebarTotal').textContent = fmt(totalMonthly);
   $('mobileTotal').textContent = fmt(totalMonthly);
   $('sc-bays').textContent = fmt(m.bays);
   $('sc-dwell').textContent = fmt(m.dwell);
   $('sc-reimburse').textContent = fmt(m.reimburse);
-  $('sc-damage').textContent = fmt(m.damage);
   $('sc-mgmt').textContent = fmt(m.mgmt);
-  if (state.currentStep === 8) updateResults();
+  if (state.currentStep === 7) updateResults();
 }
 
 // Step 2
 function syncVolume() {
-  const vol = val('monthlyVolume');
-  if ($('step6Volume')) $('step6Volume').value = vol || '';
   updateVolumeHelpers();
 }
 
@@ -1138,28 +1114,30 @@ function calcStep5() {
 }
 
 // Step 6
-function calcStep6() {
-  const vol = val('monthlyVolume');
-  $('step6Volume').value = vol || '';
-  const monthly = vol * (val('damageRate') / 100) * val('damageCost');
-  $('r6-monthly').textContent = monthly > 0 ? fmt(monthly) : '—';
-  $('r6-annual').textContent = monthly > 0 ? fmt(monthly * 12) : '—';
-  state.monthlies.damage = monthly;
-  updateTotals();
-}
-
-// Step 7
 function syncMgmtPct() {
   $('mgmtPctVal').textContent = Math.round(val('mgmtPctSlider')) + '%';
-  calcStep7();
+  calcStep6();
 }
 
-function calcStep7() {
-  const annual = val('mgmtFTEs') * val('fteCost') * (val('mgmtPctSlider') / 100);
-  const monthly = annual / 12;
-  $('r7-annual').textContent = annual > 0 ? fmt(annual) : '—';
-  $('r7-monthly').textContent = monthly > 0 ? fmt(monthly) : '—';
-  state.monthlies.mgmt = monthly;
+function calcStep6() {
+  const vol = val('monthlyVolume');
+
+  // Logistics management overhead
+  const mgmtAnnual = val('mgmtFTEs') * val('fteCost') * (val('mgmtPctSlider') / 100);
+  const mgmtMonthly = mgmtAnnual / 12;
+
+  // Damage claim management
+  const claimsPerMonth = vol * (val('damageRate') / 100);
+  const claimsMonthly = claimsPerMonth * val('claimHours') * val('claimHourlyRate');
+
+  const totalMonthly = mgmtMonthly + claimsMonthly;
+
+  $('r6-mgmt-monthly').textContent = mgmtMonthly > 0 ? fmt(mgmtMonthly) : '—';
+  $('r6-claims-monthly').textContent = claimsMonthly > 0 ? fmt(claimsMonthly) : '—';
+  $('r6-monthly').textContent = totalMonthly > 0 ? fmt(totalMonthly) : '—';
+  $('r6-annual').textContent = totalMonthly > 0 ? fmt(totalMonthly * 12) : '—';
+
+  state.monthlies.mgmt = totalMonthly;
   updateTotals();
 }
 
@@ -1174,7 +1152,7 @@ function setPeriod(p) {
 function updateResults() {
   const m = state.monthlies;
   const f = periodFactor();
-  const totalMonthly = m.bays + m.dwell + m.reimburse + m.damage + m.mgmt;
+  const totalMonthly = m.bays + m.dwell + m.reimburse + m.mgmt;
   const periodLabel = state.period === 'weekly' ? 'Weekly' : state.period === 'annual' ? 'Annual' : 'Monthly';
 
   $('results-period-header').textContent = periodLabel + ' Cost';
@@ -1183,7 +1161,6 @@ function updateResults() {
   $('rt-bays').textContent = fmt(m.bays * f);
   $('rt-dwell').textContent = fmt(m.dwell * f);
   $('rt-reimburse').textContent = fmt(m.reimburse * f);
-  $('rt-damage').textContent = fmt(m.damage * f);
   $('rt-mgmt').textContent = fmt(m.mgmt * f);
   $('rt-total').textContent = fmt(totalMonthly * f);
 
