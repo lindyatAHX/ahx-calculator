@@ -205,26 +205,189 @@ input[type=number] { -moz-appearance: textfield; }
 
 .results-actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 
+/* ── Print report (screen: hidden) ───────────────────────── */
+#print-report { display: none; }
+
 @media print {
-  .sidebar, .nav-bar, .results-actions, .results-period-tabs { display: none !important; }
-  .main { margin-left: 0 !important; }
-  .step-content { padding: 20px !important; max-width: 100% !important; }
-  body { background: white !important; color: #1a1a1a !important; }
-  .step-title { color: #04072f !important; }
-  .step-tag, .per-unit-title, .results-table tfoot .cat-value { color: #e89700 !important; }
-  .results-table th, .results-table td { color: #1a1a1a !important; }
-  .results-table .cat-value { color: #04072f !important; }
-  .results-table tfoot td { border-top-color: #e89700 !important; }
-  .results-table tbody tr { border-bottom-color: #ddd !important; }
-  .results-table thead th { color: #666 !important; border-bottom-color: #ccc !important; }
-  .callout { background: #f5f5f5 !important; }
-  .callout-title { color: #04072f !important; }
-  .callout-text { color: #333 !important; }
-  .per-unit-card { background: #f5f5f5 !important; border-color: #ddd !important; }
-  .per-unit-card-label, .per-unit-row-label { color: #666 !important; }
-  .per-unit-row-value { color: #04072f !important; }
-  .print-brand { display: block !important; text-align: center; margin-bottom: 24px; font-size: 0.8rem; color: #999; }
-  .period-data { display: block !important; }
+  @page { size: letter; margin: 0; }
+
+  /* Hide the whole app, show only the print report */
+  .app, .mobile-header { display: none !important; }
+  body { background: #fff !important; margin: 0; padding: 0; }
+  #print-report { display: block !important; font-family: 'Inter', sans-serif; color: #1a1a1a; }
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+
+  /* Header band */
+  .pr-header {
+    background: #04072f !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 40px;
+    color: #fff;
+  }
+  .pr-logo { height: 32px; display: block; }
+  .pr-header-right { text-align: right; }
+  .pr-report-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+  .pr-report-sub { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+
+  /* Accent stripe */
+  .pr-stripe {
+    height: 4px;
+    background: #e89700 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Body padding */
+  .pr-body { padding: 32px 40px 0; }
+
+  /* Summary cards */
+  .pr-summary {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .pr-sum-card {
+    flex: 1;
+    border: 1.5px solid #e4e7f0;
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .pr-sum-card--highlight {
+    background: #04072f !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border-color: #04072f !important;
+    color: #fff;
+  }
+  .pr-sum-label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8a96b8;
+    margin-bottom: 6px;
+  }
+  .pr-sum-card--highlight .pr-sum-label { color: rgba(255,255,255,0.55); }
+  .pr-sum-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #04072f;
+    letter-spacing: -0.01em;
+  }
+  .pr-sum-card--highlight .pr-sum-value { color: #e89700; }
+
+  /* Section headers */
+  .pr-section { margin-bottom: 28px; page-break-inside: avoid; }
+  .pr-section-title {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #e89700;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e4e7f0;
+  }
+
+  /* Breakdown table */
+  .pr-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .pr-table th {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a96b8;
+    padding: 0 12px 8px;
+    text-align: right;
+    border-bottom: 1.5px solid #e4e7f0;
+  }
+  .pr-table th:first-child { text-align: left; }
+  .pr-table td { padding: 10px 12px; border-bottom: 1px solid #f0f2f8; color: #2d3350; font-weight: 500; }
+  .pr-table td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: #04072f; }
+  .pr-table tfoot td {
+    padding-top: 12px;
+    border-top: 2px solid #e89700 !important;
+    border-bottom: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-weight: 800;
+    font-size: 12.5px;
+    color: #04072f;
+  }
+  .pr-table tfoot td:not(:first-child) { color: #e89700; font-size: 13.5px; }
+
+  /* Per-unit grid */
+  .pr-unit-grid { display: flex; gap: 16px; }
+  .pr-unit-card {
+    flex: 1;
+    border: 1.5px solid #e4e7f0;
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .pr-unit-type {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8a96b8;
+    margin-bottom: 10px;
+  }
+  .pr-unit-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f2f8;
+    color: #5a6282;
+  }
+  .pr-unit-row:last-child { border-bottom: none; }
+  .pr-unit-row span:last-child { font-weight: 700; font-variant-numeric: tabular-nums; color: #04072f; }
+  .pr-unit-total span:last-child { color: #e89700; font-size: 13px; }
+
+  /* Callout */
+  .pr-callout {
+    background: #f7f8fc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border-left: 4px solid #e89700 !important;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+  }
+  .pr-callout-title { font-size: 11px; font-weight: 700; color: #04072f; margin-bottom: 5px; }
+  .pr-callout-text { font-size: 10.5px; color: #5a6282; line-height: 1.6; margin-bottom: 6px; }
+  .pr-callout-url { font-size: 10px; font-weight: 600; color: #e89700; }
+
+  /* Footer */
+  .pr-footer {
+    background: #04072f !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 28px;
+  }
+  .pr-footer-brand { color: rgba(255,255,255,0.7); font-weight: 600; letter-spacing: 0.04em; }
 }
 .print-brand { display: none; }
 
@@ -938,7 +1101,7 @@ input[type=number] { -moz-appearance: textfield; }
         </div>
 
         <div class="results-actions">
-          <button class="btn btn-primary" onclick="window.print()">Print / Save as PDF</button>
+          <button class="btn btn-primary" onclick="preparePrint()">Print / Save as PDF</button>
           <button class="btn btn-secondary" onclick="resetAll()">Start Over</button>
         </div>
 
@@ -1207,11 +1370,168 @@ function resetAll() {
   goToStep(1);
 }
 
+// Print report
+function preparePrint() {
+  const m = state.monthlies;
+  const wf = 1 / WEEKS_PER_MONTH;   // monthly → weekly
+  const af = 12;                      // monthly → annual
+
+  // Date
+  const now = new Date();
+  $('pr-date').textContent = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+  // Summary totals
+  const totalM = m.bays + m.dwell + m.reimburse + m.mgmt;
+  $('pr-total-weekly').textContent  = fmt(totalM * wf);
+  $('pr-total-monthly').textContent = fmt(totalM);
+  $('pr-total-annual').textContent  = fmt(totalM * af);
+
+  // Breakdown table
+  const cats = [
+    ['bays',     'pr-bays'],
+    ['dwell',    'pr-dwell'],
+    ['reimburse','pr-reimburse'],
+    ['mgmt',     'pr-mgmt'],
+  ];
+  cats.forEach(([key, id]) => {
+    const v = m[key] || 0;
+    $(id + '-w').textContent = fmt(v * wf);
+    $(id + '-m').textContent = fmt(v);
+    $(id + '-a').textContent = fmt(v * af);
+  });
+  $('pr-total-w').textContent = fmt(totalM * wf);
+  $('pr-total-m').textContent = fmt(totalM);
+  $('pr-total-a').textContent = fmt(totalM * af);
+
+  // Per-unit (monthly basis)
+  const vol = val('monthlyVolume');
+  if (vol > 0 && totalM > 0) {
+    const wastePerUnit = totalM / vol;
+    const contractRate = val('contractRate');
+    const spotRate     = val('spotRate');
+    $('pr-pu-contract-base').textContent  = '$' + fmtDec(contractRate);
+    $('pr-pu-contract-waste').textContent = '+$' + fmtDec(wastePerUnit);
+    $('pr-pu-contract-total').textContent = '$' + fmtDec(contractRate + wastePerUnit);
+    $('pr-pu-spot-base').textContent      = '$' + fmtDec(spotRate);
+    $('pr-pu-spot-waste').textContent     = '+$' + fmtDec(wastePerUnit);
+    $('pr-pu-spot-total').textContent     = '$' + fmtDec(spotRate + wastePerUnit);
+  } else {
+    ['pr-pu-contract-base','pr-pu-contract-waste','pr-pu-contract-total',
+     'pr-pu-spot-base','pr-pu-spot-waste','pr-pu-spot-total'].forEach(id => $(id).textContent = '—');
+  }
+
+  window.print();
+}
+
 // Init
 syncPct();
 syncMgmtPct();
 updateVolumeHelpers();
 </script>
+
+<!-- ── Branded print report (hidden on screen, shown on print) ── -->
+<div id="print-report">
+
+  <div class="pr-header">
+    <img class="pr-logo" src="https://cdn.prod.website-files.com/6744da7fa3f57f6f7b9b7af4/6744da7fa3f57f6f7b9b7b2e_AHX-logo-white.svg" alt="Auto Hauler Exchange">
+    <div class="pr-header-right">
+      <div class="pr-report-title">Total Cost of Transport</div>
+      <div class="pr-report-sub">Ancillary Cost Analysis &nbsp;·&nbsp; <span id="pr-date"></span></div>
+    </div>
+  </div>
+  <div class="pr-stripe"></div>
+
+  <div class="pr-body">
+
+    <!-- Summary: 3 period totals -->
+    <div class="pr-summary">
+      <div class="pr-sum-card">
+        <div class="pr-sum-label">Weekly Exposure</div>
+        <div class="pr-sum-value" id="pr-total-weekly">—</div>
+      </div>
+      <div class="pr-sum-card pr-sum-card--highlight">
+        <div class="pr-sum-label">Monthly Exposure</div>
+        <div class="pr-sum-value" id="pr-total-monthly">—</div>
+      </div>
+      <div class="pr-sum-card">
+        <div class="pr-sum-label">Annual Exposure</div>
+        <div class="pr-sum-value" id="pr-total-annual">—</div>
+      </div>
+    </div>
+
+    <!-- Cost breakdown: all 3 periods -->
+    <div class="pr-section">
+      <div class="pr-section-title">Cost Breakdown</div>
+      <table class="pr-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Weekly</th>
+            <th>Monthly</th>
+            <th>Annual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bay Overage Fees</td>
+            <td id="pr-bays-w">—</td><td id="pr-bays-m">—</td><td id="pr-bays-a">—</td>
+          </tr>
+          <tr>
+            <td>Dwell, Handling &amp; Overflow</td>
+            <td id="pr-dwell-w">—</td><td id="pr-dwell-m">—</td><td id="pr-dwell-a">—</td>
+          </tr>
+          <tr>
+            <td>Dealer Reimbursement</td>
+            <td id="pr-reimburse-w">—</td><td id="pr-reimburse-m">—</td><td id="pr-reimburse-a">—</td>
+          </tr>
+          <tr>
+            <td>Management &amp; Claims Overhead</td>
+            <td id="pr-mgmt-w">—</td><td id="pr-mgmt-m">—</td><td id="pr-mgmt-a">—</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total Ancillary Spend</td>
+            <td id="pr-total-w">—</td><td id="pr-total-m">—</td><td id="pr-total-a">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- True cost per unit -->
+    <div class="pr-section">
+      <div class="pr-section-title">True Cost Per Unit &mdash; Monthly</div>
+      <div class="pr-unit-grid">
+        <div class="pr-unit-card">
+          <div class="pr-unit-type">Contract Moves</div>
+          <div class="pr-unit-row"><span>Base contract rate</span><span id="pr-pu-contract-base">—</span></div>
+          <div class="pr-unit-row"><span>Ancillary cost / unit</span><span id="pr-pu-contract-waste">—</span></div>
+          <div class="pr-unit-row pr-unit-total"><span>True loaded cost</span><span id="pr-pu-contract-total">—</span></div>
+        </div>
+        <div class="pr-unit-card">
+          <div class="pr-unit-type">Ad Hoc / Spot Moves</div>
+          <div class="pr-unit-row"><span>Base spot rate</span><span id="pr-pu-spot-base">—</span></div>
+          <div class="pr-unit-row"><span>Ancillary cost / unit</span><span id="pr-pu-spot-waste">—</span></div>
+          <div class="pr-unit-row pr-unit-total"><span>True loaded cost</span><span id="pr-pu-spot-total">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AHX callout -->
+    <div class="pr-callout">
+      <div class="pr-callout-title">How AHX Reduces These Costs</div>
+      <div class="pr-callout-text">Auto Hauler Exchange gives you direct access to 5,500+ vetted carriers, 4-day average delivery, and a single platform to manage it all — reducing the friction and cost at every stage above.</div>
+      <div class="pr-callout-url">marketplace.autohaulerexchange.com/sign-up/customer</div>
+    </div>
+
+  </div><!-- /.pr-body -->
+
+  <div class="pr-footer">
+    <span class="pr-footer-brand">Auto Hauler Exchange</span>
+    <span>autohaulerexchange.com &nbsp;·&nbsp; Total Cost of Transport Calculator</span>
+  </div>
+
+</div><!-- /#print-report -->
 
 </body>
 </html>
